@@ -22,18 +22,18 @@
 
 package net.fhirfactory.pegacorn.petasos.model.resilience.mode;
 
-public enum DeploymentResilienceMode {
+public enum resilienceMode {
     RESILIENCE_MODE_STANDALONE("pegacorn.platform.petasos.resilience_mode.standalone"),
     RESILIENCE_MODE_CLUSTERED("pegacorn.platform.petasos.resilience_mode.clustered"),
     RESILIENCE_MODE_MULTISITE("pegacorn.platform.petasos.resileince_mode.multisite");
 
     private String petasosNodeMode;
 
-    private DeploymentResilienceMode(String nodeMode){
+    private resilienceMode(String nodeMode){
         this.petasosNodeMode = nodeMode;
     }
 
-    public String getPetasosNodeMode(){
+    public String getResilienceMode(){
         return(this.petasosNodeMode);
     }
 }

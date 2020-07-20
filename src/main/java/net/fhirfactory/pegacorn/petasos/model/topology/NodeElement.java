@@ -22,7 +22,7 @@
 package net.fhirfactory.pegacorn.petasos.model.topology;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
-import net.fhirfactory.pegacorn.petasos.model.resilience.mode.DeploymentResilienceMode;
+import net.fhirfactory.pegacorn.petasos.model.resilience.mode.resilienceMode;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +51,7 @@ public class NodeElement {
     private FDNTokenSet containedElements;
     private FDNToken containingElementID;
     private String elementVersion;
-    private DeploymentResilienceMode resilienceMode;
+    private resilienceMode resilienceMode;
     private ConcurrencyMode concurrencyMode;
     private HashMap<String, String> elementExtensions;
 
@@ -80,7 +80,7 @@ public class NodeElement {
         this.elementExtensions = new HashMap<String, String>();
         this.elementInstanceID = elementInstanceID;
         this.concurrencyMode = ConcurrencyMode.CONCURRENCY_MODE_STANDALONE;
-        this.resilienceMode = DeploymentResilienceMode.RESILIENCE_MODE_STANDALONE;
+        this.resilienceMode = resilienceMode.RESILIENCE_MODE_STANDALONE;
         this.topologyElementStatus = ElementMapStatusEnum.NOT_INSTANTIATED;
     }
 
@@ -124,11 +124,11 @@ public class NodeElement {
         this.endpoints = endpoints;
     }
 
-    public DeploymentResilienceMode getResilienceMode() {
+    public resilienceMode getResilienceMode() {
         return resilienceMode;
     }
 
-    public void setResilienceMode(DeploymentResilienceMode resilienceMode) {
+    public void setResilienceMode(resilienceMode resilienceMode) {
         this.resilienceMode = resilienceMode;
     }
 

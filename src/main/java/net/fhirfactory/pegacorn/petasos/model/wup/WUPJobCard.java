@@ -23,7 +23,7 @@ package net.fhirfactory.pegacorn.petasos.model.wup;
 
 import net.fhirfactory.pegacorn.petasos.model.pathway.ContinuityID;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyMode;
-import net.fhirfactory.pegacorn.petasos.model.resilience.mode.DeploymentResilienceMode;
+import net.fhirfactory.pegacorn.petasos.model.resilience.mode.resilienceMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class WUPJobCard {
     private Object grantedStatusLock;
     private ConcurrencyMode clusterMode;
     private Object clusterModeLock;
-    private DeploymentResilienceMode systemMode;
+    private resilienceMode systemMode;
     private Object systemModeLock;
     private boolean isToBeDiscarded;
     private Object isToBeDiscardedLock;
@@ -53,7 +53,7 @@ public class WUPJobCard {
 
     private String toStringValue;
 
-    public WUPJobCard(ContinuityID activityID, WUPActivityStatusEnum currentStatus, WUPActivityStatusEnum requestedStatus, ConcurrencyMode clusterMode, DeploymentResilienceMode systemMode, Date updateDate) {
+    public WUPJobCard(ContinuityID activityID, WUPActivityStatusEnum currentStatus, WUPActivityStatusEnum requestedStatus, ConcurrencyMode clusterMode, resilienceMode systemMode, Date updateDate) {
         this.cardID = null;
         this.updateDate = null;
         this.currentStatus = null;
@@ -307,11 +307,11 @@ public class WUPJobCard {
         }
     }
 
-    public DeploymentResilienceMode getSystemMode() {
+    public resilienceMode getSystemMode() {
         return systemMode;
     }
 
-    public void setSystemMode(DeploymentResilienceMode systemMode) {
+    public void setSystemMode(resilienceMode systemMode) {
         synchronized (systemModeLock) {
             this.systemMode = systemMode;
             generateToString();

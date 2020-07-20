@@ -37,7 +37,7 @@ public enum ConcurrencyMode {
         this.petasosModuleMode = moduleMode;
     }
 
-    public String getModuleResilienceMode(){
+    public String getConcurrencyMode(){
         return(this.petasosModuleMode);
     }
 }
