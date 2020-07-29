@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Mark A. Hunter (ACT Health)
+ * Copyright (c) 2020 Mark A. Hunter
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,25 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package net.fhirfactory.pegacorn.petasos.model.dataset;
 
-package net.fhirfactory.pegacorn.petasos.model.resilience.mode;
+import net.fhirfactory.pegacorn.petasos.model.topology.*;
 
-/**
- *
- * @author Mark A. Hunter
- */
-public enum ConcurrencyMode {
-    CONCURRENCY_MODE_STANDALONE("pegacorn.platform.petasos.concurrency_mode.standalone"),
-    CONCURRENCY_MODE_ONDEMAND("pegacorn.platform.petasos.concurrency_mode.ondemand"),
-    CONCURRENCY_MODE_CONCURRENT("pegacorn.platform.petasos.concurrency_mode.concurrent");
+public enum DataSetTypeEnum {
+    DATASET_SECTOR("dataset_sector"),
+    DATASET_CATEGORY("dataset_category"),
+    DATASET_DEFINER("dataset_definer"),
+    DATASET_TOPIC_GROUP("dataset_topic_group"),
+    DATASET_TOPIC("dataset_topic"), 
+    DATASET_TOPIC_QUALIFIER("dataset_topic_qualifier");
+   
+    private String mapTopicElementType;
 
-    private String petasosModuleMode;
-
-    private ConcurrencyMode(String moduleMode){
-        this.petasosModuleMode = moduleMode;
+    private DataSetTypeEnum(String mapElementType){
+        this.mapTopicElementType = mapElementType;
     }
 
-    public String getConcurrencyMode(){
-        return(this.petasosModuleMode);
+    public String getTopicElementType(){
+        return(this.mapTopicElementType);
     }
 }

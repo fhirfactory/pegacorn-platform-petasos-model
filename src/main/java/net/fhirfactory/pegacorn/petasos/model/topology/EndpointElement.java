@@ -31,17 +31,27 @@ public class EndpointElement {
     private static final Logger LOG = LoggerFactory.getLogger(EndpointElement.class);
 
     private EndpointElementTypeEnum endpointType;
+    private Object endpointTypeLock;
     private ElementMapStatusEnum topologyElementStatus;
+    private Object topologyElementStatusLock;
     private FDNToken endpointInstanceID;
+    private Object endpointInstanceIDLock;
     private FDNToken endpointFunctionID;
+    private Object endpointFunctionIDLock;
     private FDNToken containingNodeID;
+    private Object containingNodeIDLock;
     private String friendlyName;
+    private Object friendlyNameLock;
     private String hostname;
+    private Object hostnameLock;
     private Integer port;
+    private Object portLock;
     private boolean isServer;
+    private Object isServerLock;
     private String toStringString;
+    private Object toStringStringLock;
 
-    public EndpointElement(){
+    public EndpointElement() {
         this.endpointFunctionID = null;
         this.toStringString = null;
         this.containingNodeID = null;
@@ -52,6 +62,16 @@ public class EndpointElement {
         this.isServer = false;
         this.port = null;
         this.topologyElementStatus = null;
+        this.endpointTypeLock = new Object();
+        this.endpointFunctionIDLock = new Object();
+        this.topologyElementStatusLock = new Object();
+        this.endpointInstanceIDLock = new Object();
+        this.containingNodeIDLock = new Object();
+        this.friendlyNameLock = new Object();
+        this.hostnameLock = new Object();
+        this.portLock = new Object();
+        this.isServerLock = new Object();
+        this.toStringStringLock = new Object();
     }
 
     public EndpointElementTypeEnum getEndpointType() {
@@ -59,8 +79,10 @@ public class EndpointElement {
     }
 
     public void setEndpointType(EndpointElementTypeEnum endpointType) {
-        this.endpointType = endpointType;
-        generateToString();
+        synchronized (endpointTypeLock) {
+            this.endpointType = endpointType;
+            generateToString();
+        }
     }
 
     public ElementMapStatusEnum getTopologyElementStatus() {
@@ -68,8 +90,10 @@ public class EndpointElement {
     }
 
     public void setTopologyElementStatus(ElementMapStatusEnum topologyElementStatus) {
-        this.topologyElementStatus = topologyElementStatus;
-        generateToString();
+        synchronized (topologyElementStatusLock) {
+            this.topologyElementStatus = topologyElementStatus;
+            generateToString();
+        }
     }
 
     public FDNToken getEndpointInstanceID() {
@@ -77,8 +101,10 @@ public class EndpointElement {
     }
 
     public void setEndpointInstanceID(FDNToken endpointInstanceID) {
-        this.endpointInstanceID = endpointInstanceID;
-        generateToString();
+        synchronized (endpointInstanceIDLock) {
+            this.endpointInstanceID = endpointInstanceID;
+            generateToString();
+        }
     }
 
     public FDNToken getEndpointFunctionID() {
@@ -86,8 +112,10 @@ public class EndpointElement {
     }
 
     public void setEndpointFunctionID(FDNToken endpointFunctionID) {
-        this.endpointFunctionID = endpointFunctionID;
-        generateToString();
+        synchronized (endpointFunctionIDLock) {
+            this.endpointFunctionID = endpointFunctionID;
+            generateToString();
+        }
     }
 
     public FDNToken getContainingNodeID() {
@@ -95,8 +123,10 @@ public class EndpointElement {
     }
 
     public void setContainingNodeID(FDNToken containingNodeID) {
-        this.containingNodeID = containingNodeID;
-        generateToString();
+        synchronized (containingNodeIDLock) {
+            this.containingNodeID = containingNodeID;
+            generateToString();
+        }
     }
 
     public String getFriendlyName() {
@@ -104,8 +134,10 @@ public class EndpointElement {
     }
 
     public void setFriendlyName(String friendlyName) {
-        this.friendlyName = friendlyName;
-        generateToString();
+        synchronized (friendlyNameLock) {
+            this.friendlyName = friendlyName;
+            generateToString();
+        }
     }
 
     public String getHostname() {
@@ -113,8 +145,10 @@ public class EndpointElement {
     }
 
     public void setHostname(String hostname) {
-        this.hostname = hostname;
-        generateToString();
+        synchronized (hostnameLock) {
+            this.hostname = hostname;
+            generateToString();
+        }
     }
 
     public Integer getPort() {
@@ -122,8 +156,11 @@ public class EndpointElement {
     }
 
     public void setPort(Integer port) {
-        this.port = port;
-        generateToString();
+        synchronized (portLock) {
+            this.port = port;
+
+            generateToString();
+        }
     }
 
     public boolean isServer() {
@@ -131,8 +168,10 @@ public class EndpointElement {
     }
 
     public void setServer(boolean server) {
-        isServer = server;
-        generateToString();
+        synchronized (isServerLock) {
+            isServer = server;
+            generateToString();
+        }
     }
 
     @Override
@@ -140,17 +179,19 @@ public class EndpointElement {
         return (this.toStringString);
     }
 
-    private void generateToString(){
-        this.toStringString = "EndpointElement{" +
-                "(endpointType:" + endpointType + ")," +
-                "(topologyElementStatus=" + topologyElementStatus + ")," +
-                "(endpointInstanceID:" + endpointInstanceID + ")," +
-                "(endpointFunctionID:" + endpointFunctionID + ")," +
-                "(containingNodeID:" + containingNodeID + ")," +
-                "(friendlyName:" + friendlyName + "),"+
-                "(hostname:" + hostname + ")," +
-                "(port:" + port + ")," +
-                "(isServer=" + isServer + ")" +
-                '}';
+    private void generateToString() {
+        synchronized (this.toStringStringLock) {
+            this.toStringString = "EndpointElement{" +
+                    "(endpointType:" + endpointType + ")," +
+                    "(topologyElementStatus=" + topologyElementStatus + ")," +
+                    "(endpointInstanceID:" + endpointInstanceID + ")," +
+                    "(endpointFunctionID:" + endpointFunctionID + ")," +
+                    "(containingNodeID:" + containingNodeID + ")," +
+                    "(friendlyName:" + friendlyName + ")," +
+                    "(hostname:" + hostname + ")," +
+                    "(port:" + port + ")," +
+                    "(isServer=" + isServer + ")" +
+                    '}';
+        }
     }
 }

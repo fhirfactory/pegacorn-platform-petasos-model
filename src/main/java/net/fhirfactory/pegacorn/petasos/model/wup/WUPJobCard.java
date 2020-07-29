@@ -22,8 +22,8 @@
 package net.fhirfactory.pegacorn.petasos.model.wup;
 
 import net.fhirfactory.pegacorn.petasos.model.pathway.ContinuityID;
-import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyMode;
-import net.fhirfactory.pegacorn.petasos.model.resilience.mode.resilienceMode;
+import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
+import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,9 +43,9 @@ public class WUPJobCard {
     private Object requestedStatusLock;
     private WUPActivityStatusEnum grantedStatus;
     private Object grantedStatusLock;
-    private ConcurrencyMode clusterMode;
+    private ConcurrencyModeEnum clusterMode;
     private Object clusterModeLock;
-    private resilienceMode systemMode;
+    private ResilienceModeEnum systemMode;
     private Object systemModeLock;
     private boolean isToBeDiscarded;
     private Object isToBeDiscardedLock;
@@ -53,7 +53,7 @@ public class WUPJobCard {
 
     private String toStringValue;
 
-    public WUPJobCard(ContinuityID activityID, WUPActivityStatusEnum currentStatus, WUPActivityStatusEnum requestedStatus, ConcurrencyMode clusterMode, resilienceMode systemMode, Date updateDate) {
+    public WUPJobCard(ContinuityID activityID, WUPActivityStatusEnum currentStatus, WUPActivityStatusEnum requestedStatus, ConcurrencyModeEnum clusterMode, ResilienceModeEnum systemMode, Date updateDate) {
         this.cardID = null;
         this.updateDate = null;
         this.currentStatus = null;
@@ -210,11 +210,11 @@ public class WUPJobCard {
         }
     }
 
-    public ConcurrencyMode getClusterMode() {
+    public ConcurrencyModeEnum getClusterMode() {
         return clusterMode;
     }
 
-    public void setClusterMode(ConcurrencyMode clusterMode) {
+    public void setClusterMode(ConcurrencyModeEnum clusterMode) {
         synchronized (clusterModeLock) {
             this.clusterMode = clusterMode;
             generateToString();
@@ -307,11 +307,11 @@ public class WUPJobCard {
         }
     }
 
-    public resilienceMode getSystemMode() {
+    public ResilienceModeEnum getSystemMode() {
         return systemMode;
     }
 
-    public void setSystemMode(resilienceMode systemMode) {
+    public void setSystemMode(ResilienceModeEnum systemMode) {
         synchronized (systemModeLock) {
             this.systemMode = systemMode;
             generateToString();

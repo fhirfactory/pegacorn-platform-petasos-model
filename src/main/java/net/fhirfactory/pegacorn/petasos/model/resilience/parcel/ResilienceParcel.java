@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
  * @author Scott Yeadon
  */
 public class ResilienceParcel {
+
     private static final Logger LOG = LoggerFactory.getLogger(ResilienceParcel.class);
 
     private FDNToken instanceID;
@@ -74,7 +75,6 @@ public class ResilienceParcel {
     //
     // Constructors
     //
-
     public ResilienceParcel(ContinuityID activityID, UoW theUoW) {
         // Clean the slate
         this.instanceID = null;
@@ -145,40 +145,40 @@ public class ResilienceParcel {
         this.finalisationDateLock = new Object();
         this.cancellationDateLock = new Object();
         // Now, add what we have been supplied
-        if( originalParcel.hasCancellationDate() ){
+        if (originalParcel.hasCancellationDate()) {
             this.cancellationDate = originalParcel.getCancellationDate();
         }
-        if( originalParcel.hasAssociatedWUPInstanceID() ){
+        if (originalParcel.hasAssociatedWUPInstanceID()) {
             this.associatedWUPInstanceID = originalParcel.getAssociatedWUPInstanceID();
         }
-        if( originalParcel.hasActualUoW() ){
+        if (originalParcel.hasActualUoW()) {
             this.actualUoW = originalParcel.getActualUoW();
         }
-        if( originalParcel.hasFinalisationDate()){
+        if (originalParcel.hasFinalisationDate()) {
             this.finalisationDate = originalParcel.getFinalisationDate();
         }
-        if( originalParcel.hasFinishedDate()){
+        if (originalParcel.hasFinishedDate()) {
             this.finishedDate = originalParcel.getFinishedDate();
         }
-        if( originalParcel.hasInstanceID()){
+        if (originalParcel.hasInstanceID()) {
             this.instanceID = originalParcel.getInstanceID();
         }
-        if( originalParcel.hasRegistrationDate() ){
+        if (originalParcel.hasRegistrationDate()) {
             this.registrationDate = originalParcel.getRegistrationDate();
         }
-        if( originalParcel.hasStartDate()){
+        if (originalParcel.hasStartDate()) {
             this.startDate = originalParcel.getStartDate();
         }
-        if( originalParcel.hasTypeID()){
+        if (originalParcel.hasTypeID()) {
             this.typeID = originalParcel.getTypeID();
         }
-        if( originalParcel.hasUpstreamEpisodeID()){
+        if (originalParcel.hasUpstreamEpisodeID()) {
             this.upstreamEpisodeID = originalParcel.getUpstreamEpisodeID();
         }
-        if( originalParcel.hasDownstreamEpisodeIDSet()){
+        if (originalParcel.hasDownstreamEpisodeIDSet()) {
             this.downstreamEpisodeIDSet = originalParcel.getDownstreamEpisodeIDSet();
         }
-        if( originalParcel.hasEpisodeID()){
+        if (originalParcel.hasEpisodeID()) {
             this.episodeID = originalParcel.getEpisodeID();
         }
     }
@@ -186,36 +186,34 @@ public class ResilienceParcel {
     //
     // Bean/Attribute Methods
     //
-
     // Helper methods for the this.cancellationDate attribute
-
-    public boolean hasCancellationDate(){
-        if(this.cancellationDate==null){
-            return(false);
-        } else {
-            return (true);
-        }
-    }
-
-    public Date getCancellationDate(){
-        return(this.cancellationDate);
-    }
-
-    public void setCancellationDate(Date newCancellationDate ){
-        synchronized (cancellationDateLock){
-            this.cancellationDate = newCancellationDate;
-        }
-    }
-
-    // Helper methods for the this.actualUoW attribute
-
-    public boolean hasActualUoW(){
-        if( this.actualUoW == null ) {
+    public boolean hasCancellationDate() {
+        if (this.cancellationDate == null) {
             return (false);
         } else {
             return (true);
         }
     }
+
+    public Date getCancellationDate() {
+        return (this.cancellationDate);
+    }
+
+    public void setCancellationDate(Date newCancellationDate) {
+        synchronized (cancellationDateLock) {
+            this.cancellationDate = newCancellationDate;
+        }
+    }
+
+    // Helper methods for the this.actualUoW attribute
+    public boolean hasActualUoW() {
+        if (this.actualUoW == null) {
+            return (false);
+        } else {
+            return (true);
+        }
+    }
+
     /**
      * @return the containedUoW
      */
@@ -233,30 +231,30 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.actualUoW attribute
-
     public boolean hasDownstreamEpisodeIDSet() {
-        if( this.downstreamEpisodeIDSet == null ){
-            return( false);
+        if (this.downstreamEpisodeIDSet == null) {
+            return (false);
         }
-        if( this.downstreamEpisodeIDSet.isEmpty()){
-            return( false);
+        if (this.downstreamEpisodeIDSet.isEmpty()) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     /**
      * @return the downstreamParcelIDSet
      */
     public FDNTokenSet getDownstreamEpisodeIDSet() {
-    	if( this.downstreamEpisodeIDSet == null ) {
-    		return(null);
-    	} else {
+        if (this.downstreamEpisodeIDSet == null) {
+            return (null);
+        } else {
             return (this.downstreamEpisodeIDSet);
         }
     }
 
     /**
-     * @param downstreamEpisodeIDSet the Parcels that continue on the work from this Parcel
+     * @param downstreamEpisodeIDSet the Parcels that continue on the work from
+     * this Parcel
      */
     public void setDownstreamEpisodeIDSet(FDNTokenSet downstreamEpisodeIDSet) {
         synchronized (downstreamEpisodeIDSetLock) {
@@ -268,39 +266,37 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.precursorParcelID attribute
-
-    public boolean hasUpstreamEpisodeID(){
-        if( this.upstreamEpisodeID == null ){
-            return(false);
+    public boolean hasUpstreamEpisodeID() {
+        if (this.upstreamEpisodeID == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     /**
      * @return the upstreamParcelInstanceID
      */
     public FDNToken getUpstreamEpisodeID() {
-        synchronized(upstreamEpisodeIDLock) {
-            return this.upstreamEpisodeID;
-        }
+
+        return this.upstreamEpisodeID;
+
     }
 
     /**
      * @param upstreamEpisodeID the "Upstream" or "Precursor" Parcel to set
      */
     public void setUpstreamEpisodeID(FDNToken upstreamEpisodeID) {
-
-        this.upstreamEpisodeID = upstreamEpisodeID;
+        synchronized (upstreamEpisodeIDLock) {
+            this.upstreamEpisodeID = upstreamEpisodeID;
+        }
     }
 
-
     // Helper methods for the this.parcelInstanceID attribute
-
-    public boolean hasInstanceID(){
-        if( this.instanceID == null ){
-            return(false);
+    public boolean hasInstanceID() {
+        if (this.instanceID == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     public FDNToken getInstanceID() {
@@ -314,12 +310,11 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.parcelTypeID attribute
-
-    public boolean hasTypeID(){
-        if( this.typeID == null ){
-            return(false);
+    public boolean hasTypeID() {
+        if (this.typeID == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     public FDNToken getTypeID() {
@@ -333,12 +328,11 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.parcelRegistrationDate attribute
-
-    public boolean hasRegistrationDate(){
-        if( registrationDate == null ){
-            return(false);
+    public boolean hasRegistrationDate() {
+        if (registrationDate == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     public Date getRegistrationDate() {
@@ -352,13 +346,13 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.parcelStartDate attribute
-
-    public boolean hasStartDate(){
-        if( this.startDate == null ){
-            return(false);
+    public boolean hasStartDate() {
+        if (this.startDate == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -370,12 +364,11 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.parcelFinishedDate attribute
-
-    public boolean hasFinishedDate(){
-        if( this.finishedDate == null ){
-            return(false);
+    public boolean hasFinishedDate() {
+        if (this.finishedDate == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     public Date getFinishedDate() {
@@ -389,12 +382,11 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.parcelFinalisationDate attribute
-
-    public boolean hasFinalisationDate(){
-        if( this.finalisationDate == null ){
-            return(false);
+    public boolean hasFinalisationDate() {
+        if (this.finalisationDate == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     public Date getFinalisationDate() {
@@ -408,12 +400,11 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.associatedWUPInstanceID attribute
-
-    public boolean hasAssociatedWUPInstanceID(){
-        if(this.associatedWUPInstanceID == null){
-            return(false);
+    public boolean hasAssociatedWUPInstanceID() {
+        if (this.associatedWUPInstanceID == null) {
+            return (false);
         }
-        return(true);
+        return (true);
     }
 
     public FDNToken getAssociatedWUPInstanceID() {
@@ -427,16 +418,16 @@ public class ResilienceParcel {
     }
 
     public void setTypeID(FDNToken typeID) {
-        synchronized(typeIDLock) {
+        synchronized (typeIDLock) {
             this.typeID = typeID;
         }
     }
 
-    public boolean hasFinalisationStatus(){
-        if(this.finalisationStatus ==null){
-            return(false);
+    public boolean hasFinalisationStatus() {
+        if (this.finalisationStatus == null) {
+            return (false);
         } else {
-            return(true);
+            return (true);
         }
     }
 
@@ -450,11 +441,11 @@ public class ResilienceParcel {
         }
     }
 
-    public boolean hasProcessingStatus(){
-        if(this.processingStatus == null){
-            return(false);
+    public boolean hasProcessingStatus() {
+        if (this.processingStatus == null) {
+            return (false);
         } else {
-            return(true);
+            return (true);
         }
     }
 
@@ -469,90 +460,89 @@ public class ResilienceParcel {
     }
 
     // toString()
-
     @Override
-    public String toString(){
+    public String toString() {
         String newString = new String("ResilienceParcel={");
         String parcelInstanceIDString;
-        if(hasInstanceID()) {
+        if (hasInstanceID()) {
             parcelInstanceIDString = "(instanceID:" + instanceID.toString() + ")";
-        }else{
+        } else {
             parcelInstanceIDString = "(instanceID:null)";
         }
         String parcelTypeIDString;
-        if(hasTypeID()){
+        if (hasTypeID()) {
             parcelTypeIDString = "(typeID:" + typeID.toString() + ")";
         } else {
             parcelTypeIDString = "(typeID:null)";
         }
         String associatedWUPInstanceIDString;
-        if(hasAssociatedWUPInstanceID()){
+        if (hasAssociatedWUPInstanceID()) {
             associatedWUPInstanceIDString = "(associatedWUPInstanceID=" + associatedWUPInstanceID.toString() + ")";
         } else {
             associatedWUPInstanceIDString = "(associatedWUPInstanceID=null)";
         }
         String upstreamParcelIDString;
-        if(hasUpstreamEpisodeID()) {
-        	upstreamParcelIDString = "(upstreamEpisodeID:" + upstreamEpisodeID.toString() + ")";
+        if (hasUpstreamEpisodeID()) {
+            upstreamParcelIDString = "(upstreamEpisodeID:" + upstreamEpisodeID.toString() + ")";
         } else {
-        	upstreamParcelIDString = "(upstreamEpisodeID:null)";
+            upstreamParcelIDString = "(upstreamEpisodeID:null)";
         }
         String downstreamParcelIDSetString = new String();
-        if(hasDownstreamEpisodeIDSet()){
-        	downstreamParcelIDSetString = "(downstreamEpisodeIDSet:"+this.downstreamEpisodeIDSet.toString()+")";
+        if (hasDownstreamEpisodeIDSet()) {
+            downstreamParcelIDSetString = "(downstreamEpisodeIDSet:" + this.downstreamEpisodeIDSet.toString() + ")";
         } else {
-        	downstreamParcelIDSetString = "(downstreamEpisodeIDSet:null)";
+            downstreamParcelIDSetString = "(downstreamEpisodeIDSet:null)";
         }
         String actualUoWString;
-        if(hasActualUoW()){
+        if (hasActualUoW()) {
             actualUoWString = "(actualUoW:" + actualUoW.toString() + ")";
         } else {
             actualUoWString = "(actualUoW:null)";
         }
         String parcelRegistrationDateString;
-        if(hasRegistrationDate()){
+        if (hasRegistrationDate()) {
             parcelRegistrationDateString = "(registrationDate:" + registrationDate.toString() + ")";
         } else {
             parcelRegistrationDateString = "(registrationDate:null)";
         }
         String parcelStartDateString;
-        if(hasStartDate()){
+        if (hasStartDate()) {
             parcelStartDateString = "(startDateString:" + startDate.toString() + ")";
         } else {
             parcelStartDateString = "(startDateString:null)";
         }
         String parcelFinishedDateString;
-        if(hasFinishedDate()){
+        if (hasFinishedDate()) {
             parcelFinishedDateString = "(finishedDate:" + finishedDate.toString() + ")";
         } else {
             parcelFinishedDateString = "(finishedDate:null)";
         }
         String parcelFinalisationDateString;
-        if(hasFinalisationDate()) {
+        if (hasFinalisationDate()) {
             parcelFinalisationDateString = "(finalisationDate:" + finalisationDate.toString() + ")";
         } else {
             parcelFinalisationDateString = "(finalisationDate:null)";
         }
         String parcelFinalisationStatusEnumString;
-        if(hasFinalisationStatus()){
+        if (hasFinalisationStatus()) {
             parcelFinalisationStatusEnumString = "(finalisationStatus:" + finalisationStatus.toString() + ")";
         } else {
             parcelFinalisationStatusEnumString = "(finalisationStatus:null)";
         }
         String parcelProcessingStatusEnumString;
-        if(hasProcessingStatus()){
+        if (hasProcessingStatus()) {
             parcelProcessingStatusEnumString = "(processingStatus:" + processingStatus.toString() + ")";
         } else {
             parcelProcessingStatusEnumString = "(processingStatus:null)";
         }
         String parcelEpisodeString;
-        if(hasEpisodeID()){
+        if (hasEpisodeID()) {
             parcelEpisodeString = "(episodeID:" + episodeID.toString() + ")";
         } else {
             parcelEpisodeString = "(episodeID:null)";
         }
         String cancellationDateString;
-        if(hasCancellationDate()){
+        if (hasCancellationDate()) {
             cancellationDateString = "(cancellationDate:" + episodeID.toString() + ")";
         } else {
             cancellationDateString = "(cancellationDate:null)";
@@ -572,14 +562,14 @@ public class ResilienceParcel {
                 + parcelProcessingStatusEnumString + ","
                 + parcelFinalisationDateString + ","
                 + cancellationDateString + "}";
-        return(newString);
+        return (newString);
     }
 
-    public boolean hasEpisodeID(){
-        if(this.episodeID == null){
-            return(false);
+    public boolean hasEpisodeID() {
+        if (this.episodeID == null) {
+            return (false);
         } else {
-            return(true);
+            return (true);
         }
     }
 
@@ -593,72 +583,72 @@ public class ResilienceParcel {
         }
     }
 
-    public FDNToken buildEpisodeID(ContinuityID activityID, UoW theUoW){
-        if(theUoW==null){
-            throw(new IllegalArgumentException(".buildEpisodeID(): null UoW passed as parameter"));
+    public FDNToken buildEpisodeID(ContinuityID activityID, UoW theUoW) {
+        if (theUoW == null) {
+            throw (new IllegalArgumentException(".buildEpisodeID(): null UoW passed as parameter"));
         }
-        if(activityID==null){
-            throw(new IllegalArgumentException(".buildEpisodeID(): null ContinuityID passed as parameter"));
+        if (activityID == null) {
+            throw (new IllegalArgumentException(".buildEpisodeID(): null ContinuityID passed as parameter"));
         }
         FDN uowInstanceFDN;
-        if(theUoW.hasInstanceID()){
+        if (theUoW.hasInstanceID()) {
             uowInstanceFDN = new FDN(theUoW.getInstanceID());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): UoW has no instance value, bad parameter"));
         }
         FDN newEpisodeID;
-        if(activityID.hasPresentWUPTypeID()){
+        if (activityID.hasPresentWUPTypeID()) {
             newEpisodeID = new FDN(activityID.getPresentWUPTypeID());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): ContinuityID has no PresentWUPTypeID value, bad parameter"));
         }
         newEpisodeID.appendFDN(uowInstanceFDN);
-        return(newEpisodeID.getToken());
+        return (newEpisodeID.getToken());
     }
 
-    public FDNToken buildParcelTypeID(ContinuityID activityID, UoW theUoW){
-        if(theUoW==null){
-            throw(new IllegalArgumentException(".buildEpisodeID(): null UoW passed as parameter"));
+    public FDNToken buildParcelTypeID(ContinuityID activityID, UoW theUoW) {
+        if (theUoW == null) {
+            throw (new IllegalArgumentException(".buildEpisodeID(): null UoW passed as parameter"));
         }
-        if(activityID==null){
-            throw(new IllegalArgumentException(".buildEpisodeID(): null ContinuityID passed as parameter"));
+        if (activityID == null) {
+            throw (new IllegalArgumentException(".buildEpisodeID(): null ContinuityID passed as parameter"));
         }
         FDN uowTypeFDN;
-        if(theUoW.hasTypeID()){
+        if (theUoW.hasTypeID()) {
             uowTypeFDN = new FDN(theUoW.getTypeID());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): UoW has no type value, bad parameter"));
         }
         FDN newTypeID;
-        if(activityID.hasPresentWUPTypeID()){
+        if (activityID.hasPresentWUPTypeID()) {
             newTypeID = new FDN(activityID.getPresentWUPTypeID());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): ContinuityID has no PresentWUPTypeID value, bad parameter"));
         }
         newTypeID.appendFDN(uowTypeFDN);
-        return(newTypeID.getToken());
+        return (newTypeID.getToken());
     }
 
-    public FDNToken buildParcelInstanceID(ContinuityID activityID, UoW theUoW){
-        if(theUoW==null){
-            throw(new IllegalArgumentException(".buildEpisodeID(): null UoW passed as parameter"));
+    public FDNToken buildParcelInstanceID(ContinuityID activityID, UoW theUoW) {
+        if (theUoW == null) {
+            throw (new IllegalArgumentException(".buildEpisodeID(): null UoW passed as parameter"));
         }
-        if(activityID==null){
-            throw(new IllegalArgumentException(".buildEpisodeID(): null ContinuityID passed as parameter"));
+        if (activityID == null) {
+            throw (new IllegalArgumentException(".buildEpisodeID(): null ContinuityID passed as parameter"));
         }
         FDN uowInstanceFDN;
-        if(theUoW.hasInstanceID()){
+        if (theUoW.hasInstanceID()) {
             uowInstanceFDN = new FDN(theUoW.getInstanceID());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): UoW has no instance value, bad parameter"));
         }
         FDN newInstanceID;
-        if(activityID.hasPresentWUPInstanceID()){
+        if (activityID.hasPresentWUPInstanceID()) {
             newInstanceID = new FDN(activityID.getPresentWUPInstanceID());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): ContinuityID has no PresentWUPInstanceID value, bad parameter"));
         }
         newInstanceID.appendFDN(uowInstanceFDN);
-        return(newInstanceID.getToken());
+        return (newInstanceID.getToken());
     }
 }

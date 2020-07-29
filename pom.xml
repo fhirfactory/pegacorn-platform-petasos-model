@@ -22,7 +22,8 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.6.0</version>
+                <version>${version-org.junit}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>org.wildfly.bom</groupId>
@@ -52,7 +53,7 @@
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>${javax.enterprise.cdi-api.version}</version>
+            <version>${version-javax.enterprise-cdi-api}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -80,6 +81,14 @@
             <artifactId>jboss-annotations-api_1.3_spec</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${version-org.apache.commons-lang3}</version>
+        </dependency>
+
+        <!-- Apache Camel -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
@@ -134,21 +143,21 @@
             <groupId>org.jgroups</groupId>
             <artifactId>jgroups</artifactId>
             <scope>compile</scope>
-            <version>4.2.3.Final</version>
+            <version>${version-org.jgroups-jgroups}</version>
         </dependency>
 
         <!-- logging -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>${version-ch.qos.logback-classic}</version>
         </dependency>
 		
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M4</version>
+            <version>${version-org.apache.maven-surefire-plugin}</version>
             <type>maven-plugin</type>
         </dependency>
         <dependency>
@@ -168,7 +177,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version-org.apache.maven.compiler.plugin}</version>
+                <version>${version-org.apache.maven-compiler-plugin}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
@@ -177,11 +186,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>${version-org.apache.maven-surefire-plugin}</version>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${version-org.apache.maven-failsafe-plugin}</version>
             </plugin>
         </plugins>
     </build>
