@@ -22,40 +22,30 @@
 package net.fhirfactory.pegacorn.petasos.model.uow;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
+import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 
 /**
  * @author Mark A. Hunter
  */
 public class UoWPayload {
     private FDNToken payloadInstanceID;
-    private FDNToken payloadTypeID;
-    private FDNToken payloadTopicID;
+    private TopicToken payloadTopicID;
     private String payload;
 
     public UoWPayload() {
-        payloadTypeID = null;
         payload = null;
         payloadTopicID = null;
     }
 
     public UoWPayload(UoWPayload originalUoWPayload) {
-        payloadTypeID = new FDNToken(originalUoWPayload.getPayloadTypeID());
-        payload = new String(originalUoWPayload.getPayload());
-        payloadTopicID = new FDNToken(originalUoWPayload.getPayloadTopicID());
-        payloadInstanceID = new FDNToken(originalUoWPayload.getPayloadInstanceID());
+        payload = originalUoWPayload.getPayload();
+        payloadTopicID = originalUoWPayload.getPayloadTopicID();
+        payloadInstanceID = originalUoWPayload.getPayloadInstanceID();
     }
 
-    public UoWPayload(FDNToken payloadType, String payloadContent){
-        this.payloadTypeID = new FDNToken(payloadType);
-        this.payload = new String(payloadContent);
-    }
-
-    public FDNToken getPayloadTypeID() {
-        return payloadTypeID;
-    }
-
-    public void setPayloadTypeID(FDNToken payloadTypeID) {
-        this.payloadTypeID = payloadTypeID;
+    public UoWPayload(TopicToken payloadType, String payloadContent){
+        this.payloadTopicID = payloadType;
+        this.payload = payloadContent;
     }
 
     public String getPayload() {
@@ -66,11 +56,11 @@ public class UoWPayload {
         this.payload = payload;
     }
 
-    public FDNToken getPayloadTopicID() {
+    public TopicToken getPayloadTopicID() {
         return payloadTopicID;
     }
 
-    public void setPayloadTopicID(FDNToken payloadTopicID) {
+    public void setPayloadTopicID(TopicToken payloadTopicID) {
         this.payloadTopicID = payloadTopicID;
     }
 

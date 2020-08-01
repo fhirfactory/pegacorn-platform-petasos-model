@@ -29,6 +29,7 @@ import java.time.Instant;
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.common.model.RDN;
+import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -288,17 +289,11 @@ public class UoW {
         }
     }
 
-    public FDNToken getPayloadTopicID() {
+    public TopicToken getPayloadTopicID() {
         if (hasPayloadTopicID()) {
             return (this.getIngresContent().getPayloadTopicID());
         } else {
             return (null);
-        }
-    }
-
-    public void setPayloadTopicID(FDNToken newTopicID) {
-        if (this.hasIngresContent()) {
-            this.ingresContent.setPayloadTopicID(newTopicID);
         }
     }
 }
