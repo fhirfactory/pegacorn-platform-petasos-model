@@ -56,14 +56,16 @@ public class NodeElement {
     private Object containedElementsLock;
     private FDNToken containingElementID;
     private Object containingElementIDLock;
-    private String elementVersion;
-    private Object elementVersionLock;
+    private String version;
+    private Object versionLock;
     private ResilienceModeEnum resilienceMode;
     private Object resilienceModeLock;
     private ConcurrencyModeEnum concurrencyMode;
     private Object concurrencyModeLock;
     private HashMap<String, String> elementExtensions;
     private Object elementExtensionsLock;
+    private boolean instanceInPlace;
+    private Object instanceInPlaceLock;
 
     public NodeElement() {
         // 1st, clear the deck
@@ -83,14 +85,16 @@ public class NodeElement {
         this.containedElementsLock = new Object();
         this.containingElementID = null;
         this.containingElementIDLock = new Object();
-        this.elementVersion = null;
-        this.elementVersionLock = new Object();
+        this.version = null;
+        this.versionLock = new Object();
         this.resilienceMode = null;
         this.resilienceModeLock = new Object();
         this.concurrencyMode = null;
         this.concurrencyModeLock = new Object();
         this.elementExtensions = null;
         this.elementExtensionsLock = new Object();
+        this.instanceInPlace = false;
+        this.instanceInPlaceLock = new Object();
         // Now establish the basic structure
         this.endpoints = new FDNTokenSet();
         this.links = new FDNTokenSet();
@@ -99,6 +103,7 @@ public class NodeElement {
         this.elementInstanceID = null;
         this.topologyElementStatus = null;
         this.topologyElementType = null;
+        this.instanceInPlace = false;
     }
 
     public NodeElement(FDNToken elementInstanceID) {
@@ -119,14 +124,16 @@ public class NodeElement {
         this.containedElementsLock = new Object();
         this.containingElementID = null;
         this.containingElementIDLock = new Object();
-        this.elementVersion = null;
-        this.elementVersionLock = new Object();
+        this.version = null;
+        this.versionLock = new Object();
         this.resilienceMode = null;
         this.resilienceModeLock = new Object();
         this.concurrencyMode = null;
         this.concurrencyModeLock = new Object();
         this.elementExtensions = null;
         this.elementExtensionsLock = new Object();
+        this.instanceInPlace = false;
+        this.instanceInPlaceLock = new Object();
         // Now establish the basic structure
         this.endpoints = new FDNTokenSet();
         this.links = new FDNTokenSet();
@@ -136,6 +143,7 @@ public class NodeElement {
         this.concurrencyMode = ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE;
         this.resilienceMode = resilienceMode.RESILIENCE_MODE_STANDALONE;
         this.topologyElementStatus = ElementMapStatusEnum.NOT_INSTANTIATED;
+        this.instanceInPlace = false;
     }
 
     public FDNToken getContainingElementID() {
@@ -288,13 +296,13 @@ public class NodeElement {
         }
     }
 
-    public String getElementVersion() {
-        return elementVersion;
+    public String getVersion() {
+        return version;
     }
 
-    public void setElementVersion(String elementVersion) {
-        synchronized (elementVersionLock) {
-            this.elementVersion = elementVersion;
+    public void setVersion(String version) {
+        synchronized (versionLock) {
+            this.version = version;
         }
     }
 
@@ -306,5 +314,20 @@ public class NodeElement {
         synchronized (elementExtensionsLock) {
             this.elementExtensions = elementExtensions;
         }
+    }
+
+    public boolean isInstanceInPlace() {
+        return instanceInPlace;
+    }
+
+    public void setInstanceInPlace(boolean instanceInPlace) {
+        this.instanceInPlace = instanceInPlace;
+    }
+    
+    public NodeToken getNodeToken(){
+        NodeToken token = new NodeToken();
+        token.setIdentifier(this.elementInstanceID);
+        token.setVersion(this.version);
+        return(token);        
     }
 }

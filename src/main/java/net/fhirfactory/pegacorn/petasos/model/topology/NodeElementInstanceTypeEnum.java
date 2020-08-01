@@ -34,7 +34,7 @@ public enum NodeElementInstanceTypeEnum {
     WUP_CONTAINER_EGRESS_GATEKEEPER("wup_egress_gatekeeper"),
     PROCESSING_PLANT("processing_plant"),
     SERVICE_MODULE("service_module"),
-    PLATFORM_SERVICE("platform_service"),
+    PLATFORM("platform_service"),
     SERVICE("service"),
     SITE("site"),
     EXTERNALISED_SERVICE("externalised_service"),

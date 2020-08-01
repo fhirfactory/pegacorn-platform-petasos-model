@@ -19,25 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package net.fhirfactory.pegacorn.petasos.model.dataset;
+package net.fhirfactory.pegacorn.petasos.model.topology;
 
-import net.fhirfactory.pegacorn.petasos.model.topology.*;
+import net.fhirfactory.pegacorn.common.model.FDNToken;
 
-public enum DataSetTypeEnum {
-    DATASET_SECTOR("dataset_sector"),
-    DATASET_CATEGORY("dataset_category"),
-    DATASET_DEFINER("dataset_definer"),
-    DATASET_TOPIC_GROUP("dataset_topic_group"),
-    DATASET_TOPIC("dataset_topic"), 
-    DATASET_TOPIC_QUALIFIER("dataset_topic_qualifier");
-   
-    private String mapTopicElementType;
+/**
+ *
+ * @author mhunter
+ */
+public class NodeToken {
 
-    private DataSetTypeEnum(String mapElementType){
-        this.mapTopicElementType = mapElementType;
+    private FDNToken identifier;
+    private String version;
+
+    public NodeToken(FDNToken datasetToken, String datasetVersion) {
+        this.identifier = datasetToken;
+        this.version = datasetVersion;
     }
 
-    public String getTopicElementType(){
-        return(this.mapTopicElementType);
+    public NodeToken() {
+        this.identifier = null;
+        this.version = null;
+    }
+
+    public FDNToken getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(FDNToken identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

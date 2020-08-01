@@ -31,11 +31,12 @@ public enum NodeElementTypeTypeEnum {
     ELEMENT_TYPE_WUP_CONTAINER_EGRESS_CONDUIT("wup_egress_conduit"),
     ELEMENT_TYPE_WUP_CONTAINER_EGRESS_PROCESSOR("wup_egress_processor"),
     ELEMENT_TYPE_WUP_CONTAINER_EGRESS_GATEKEEPER("wup_egress_gatekeeper"),
-    ELEMENT_TYPE_DEPLOYMENT_PROCESSING_PLANT("processing_plant"),
-    ELEMENT_TYPE_DEPLOYMENT_SERVICE_MODULE("service_module"),
-    ELEMENT_TYPE_DEPLOYMENT_SERVICE("service"),
-    ELEMENT_TYPE_DEPLOYMENT_SUBSYSTEM("subsystem"),
-    ELEMENT_TYPE_DEPLOYMENT_SOLUTION("solution");
+    ELEMENT_TYPE_PROCESSING_PLANT("processing_plant"),
+    ELEMENT_TYPE_SERVICE("service"),
+    ELEMENT_TYPE_SERVICE_MODULE("service_module"),
+    ELEMENT_TYPE_EXTERNALISED_SERVICE("externalised_service"),
+    ELEMENT_TYPE_SUBSYSTEM("subsystem"),
+    ELEMENT_TYPE_SOLUTION("solution");
     
     private String mapElementTypeType;
 
