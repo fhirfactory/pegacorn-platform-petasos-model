@@ -21,40 +21,32 @@
  */
 package net.fhirfactory.pegacorn.petasos.model.topology;
 
-import net.fhirfactory.pegacorn.common.model.FDNToken;
+public enum NodeElementTypeEnum {
+    WUP("wup"),
+    WUP_INTERCHANGE_PAYLOAD_TRANSFORMER("interchange_payload_transfomer"),
+    WUP_INTERCHANGE_ROUTER("interchange_payload_router"),
+    WUP_CONTAINER_INGRES_PROCESSOR("wup_ingres_processor"),
+    WUP_CONTAINER_INGRES_GATEKEEPER("wup_ingres_gatekeeper"),
+    WUP_CONTAINER_INGRES_CONDUIT("wup_ingres_conduit"),
+    WUP_CONTAINER_EGRESS_CONDUIT("wup_egress_conduit"),
+    WUP_CONTAINER_EGRESS_PROCESSOR("wup_egress_processor"),
+    WUP_CONTAINER_EGRESS_GATEKEEPER("wup_egress_gatekeeper"),
+    PROCESSING_PLANT("processing_plant"),
+    SERVICE_MODULE("service_module"),
+    PLATFORM("platform_service"),
+    SERVICE("service"),
+    SITE("site"),
+    EXTERNALISED_SERVICE("externalised_service"),
+    SUBSYSTEM("subsystem"),
+    SOLUTION("solution");
+    
+    private String nodeElementType;
 
-/**
- *
- * @author mhunter
- */
-public class NodeToken {
-
-    private FDNToken identifier;
-    private String version;
-
-    public NodeToken(FDNToken datasetToken, String datasetVersion) {
-        this.identifier = datasetToken;
-        this.version = datasetVersion;
+    private NodeElementTypeEnum(String mapElementType){
+        this.nodeElementType = mapElementType;
     }
 
-    public NodeToken() {
-        this.identifier = null;
-        this.version = null;
-    }
-
-    public FDNToken getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(FDNToken identifier) {
-        this.identifier = identifier;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
+    public String getNodeElementType(){
+        return(this.nodeElementType);
     }
 }

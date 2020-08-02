@@ -597,8 +597,8 @@ public class ResilienceParcel {
             throw (new IllegalArgumentException(".buildEpisodeID(): UoW has no instance value, bad parameter"));
         }
         FDN newEpisodeID;
-        if (activityID.hasPresentWUPTypeID()) {
-            newEpisodeID = new FDN(activityID.getPresentWUPTypeID());
+        if (activityID.hasPresentWUPFunctionToken()) {
+            newEpisodeID = new FDN(activityID.getPresentWUPFunctionToken().getAsSingleFDNToken());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): ContinuityID has no PresentWUPTypeID value, bad parameter"));
         }
@@ -620,8 +620,8 @@ public class ResilienceParcel {
             throw (new IllegalArgumentException(".buildEpisodeID(): UoW has no type value, bad parameter"));
         }
         FDN newTypeID;
-        if (activityID.hasPresentWUPTypeID()) {
-            newTypeID = new FDN(activityID.getPresentWUPTypeID());
+        if (activityID.hasPresentWUPFunctionToken()) {
+            newTypeID = new FDN(activityID.getPresentWUPFunctionToken().getAsSingleFDNToken());
         } else {
             throw (new IllegalArgumentException(".buildEpisodeID(): ContinuityID has no PresentWUPTypeID value, bad parameter"));
         }

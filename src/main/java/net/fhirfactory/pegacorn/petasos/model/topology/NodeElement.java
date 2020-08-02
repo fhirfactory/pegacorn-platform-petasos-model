@@ -40,14 +40,14 @@ public class NodeElement {
 
     private static final Logger LOG = LoggerFactory.getLogger(NodeElement.class);
 
-    private NodeElementInstanceTypeEnum topologyElementType;
-    private Object topologyElementTypeLock;
-    private ElementMapStatusEnum topologyElementStatus;
-    private Object topologyElementStatusLock;
-    private FDNToken elementInstanceID;
-    private Object elementInstanceIDLock;
-    private FDNToken elementFunctionTypeID;
-    private Object elementFunctionTypeIDLock;
+    private NodeElementTypeEnum nodeArchetype;
+    private Object nodeArchetypeLock;
+    private ElementMapStatusEnum nodeMapStatus;
+    private Object nodeMapStatusLock;
+    private FDNToken nodeInstanceID;
+    private Object nodeInstanceIDLock;
+    private FDNToken nodeFunctionID;
+    private Object nodeFunctionIDLock;
     private FDNTokenSet links;
     private Object linksLock;
     private FDNTokenSet endpoints;
@@ -69,14 +69,14 @@ public class NodeElement {
 
     public NodeElement() {
         // 1st, clear the deck
-        this.topologyElementType = null;
-        this.topologyElementTypeLock = new Object();
-        this.topologyElementStatus = null;
-        this.topologyElementStatusLock = new Object();
-        this.elementInstanceID = null;
-        this.elementInstanceIDLock = new Object();
-        this.elementFunctionTypeID = null;
-        this.elementFunctionTypeIDLock = new Object();
+        this.nodeArchetype = null;
+        this.nodeArchetypeLock = new Object();
+        this.nodeMapStatus = null;
+        this.nodeMapStatusLock = new Object();
+        this.nodeInstanceID = null;
+        this.nodeInstanceIDLock = new Object();
+        this.nodeFunctionID = null;
+        this.nodeFunctionIDLock = new Object();
         this.links = null;
         this.linksLock = new Object();
         this.endpoints = null;
@@ -100,22 +100,22 @@ public class NodeElement {
         this.links = new FDNTokenSet();
         this.containedElements = new FDNTokenSet();
         this.elementExtensions = new HashMap<String, String>();
-        this.elementInstanceID = null;
-        this.topologyElementStatus = null;
-        this.topologyElementType = null;
+        this.nodeInstanceID = null;
+        this.nodeMapStatus = null;
+        this.nodeArchetype = null;
         this.instanceInPlace = false;
     }
 
     public NodeElement(FDNToken elementInstanceID) {
         // 1st, clear the deck
-        this.topologyElementType = null;
-        this.topologyElementTypeLock = new Object();
-        this.topologyElementStatus = null;
-        this.topologyElementStatusLock = new Object();
-        this.elementInstanceID = null;
-        this.elementInstanceIDLock = new Object();
-        this.elementFunctionTypeID = null;
-        this.elementFunctionTypeIDLock = new Object();
+        this.nodeArchetype = null;
+        this.nodeArchetypeLock = new Object();
+        this.nodeMapStatus = null;
+        this.nodeMapStatusLock = new Object();
+        this.nodeInstanceID = null;
+        this.nodeInstanceIDLock = new Object();
+        this.nodeFunctionID = null;
+        this.nodeFunctionIDLock = new Object();
         this.links = null;
         this.linksLock = new Object();
         this.endpoints = null;
@@ -139,10 +139,10 @@ public class NodeElement {
         this.links = new FDNTokenSet();
         this.containedElements = new FDNTokenSet();
         this.elementExtensions = new HashMap<String, String>();
-        this.elementInstanceID = elementInstanceID;
+        this.nodeInstanceID = elementInstanceID;
         this.concurrencyMode = ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE;
         this.resilienceMode = resilienceMode.RESILIENCE_MODE_STANDALONE;
-        this.topologyElementStatus = ElementMapStatusEnum.NOT_INSTANTIATED;
+        this.nodeMapStatus = ElementMapStatusEnum.NOT_INSTANTIATED;
         this.instanceInPlace = false;
     }
 
@@ -156,33 +156,33 @@ public class NodeElement {
         }
     }
 
-    public NodeElementInstanceTypeEnum getTopologyElementType() {
-        return topologyElementType;
+    public NodeElementTypeEnum getNodeArchetype() {
+        return nodeArchetype;
     }
 
-    public void setTopologyElementType(NodeElementInstanceTypeEnum topologyElementType) {
-        synchronized (this.topologyElementTypeLock) {
-            this.topologyElementType = topologyElementType;
+    public void setNodeArchetype(NodeElementTypeEnum nodeArchetype) {
+        synchronized (this.nodeArchetypeLock) {
+            this.nodeArchetype = nodeArchetype;
         }
     }
 
-    public ElementMapStatusEnum getTopologyElementStatus() {
-        return topologyElementStatus;
+    public ElementMapStatusEnum getNodeMapStatus() {
+        return nodeMapStatus;
     }
 
-    public void setTopologyElementStatus(ElementMapStatusEnum topologyElementStatus) {
-        synchronized (topologyElementStatusLock) {
-            this.topologyElementStatus = topologyElementStatus;
+    public void setNodeMapStatus(ElementMapStatusEnum nodeMapStatus) {
+        synchronized (nodeMapStatusLock) {
+            this.nodeMapStatus = nodeMapStatus;
         }
     }
 
-    public FDNToken getElementInstanceID() {
-        return elementInstanceID;
+    public FDNToken getNodeInstanceID() {
+        return nodeInstanceID;
     }
 
-    public void setElementInstanceID(FDNToken elementInstanceID) {
-        synchronized (elementInstanceIDLock) {
-            this.elementInstanceID = elementInstanceID;
+    public void setNodeInstanceID(FDNToken nodeInstanceID) {
+        synchronized (nodeInstanceIDLock) {
+            this.nodeInstanceID = nodeInstanceID;
         }
     }
 
@@ -286,13 +286,13 @@ public class NodeElement {
         }
     }
 
-    public FDNToken getElementFunctionTypeID() {
-        return elementFunctionTypeID;
+    public FDNToken getNodeFunctionID() {
+        return nodeFunctionID;
     }
 
-    public void setElementFunctionTypeID(FDNToken elementFunctionTypeID) {
-        synchronized(elementFunctionTypeIDLock) {
-            this.elementFunctionTypeID = elementFunctionTypeID;
+    public void setNodeFunctionID(FDNToken nodeFunctionID) {
+        synchronized(nodeFunctionIDLock) {
+            this.nodeFunctionID = nodeFunctionID;
         }
     }
 
@@ -324,9 +324,9 @@ public class NodeElement {
         this.instanceInPlace = instanceInPlace;
     }
     
-    public NodeToken getNodeToken(){
-        NodeToken token = new NodeToken();
-        token.setIdentifier(this.elementInstanceID);
+    public NodeElementFunctionToken getNodeFunctionToken(){
+        NodeElementFunctionToken token = new NodeElementFunctionToken();
+        token.setFunctionID(this.nodeInstanceID);
         token.setVersion(this.version);
         return(token);        
     }

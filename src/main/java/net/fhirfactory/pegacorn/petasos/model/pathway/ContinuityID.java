@@ -25,6 +25,7 @@ package net.fhirfactory.pegacorn.petasos.model.pathway;
 import java.time.Instant;
 import java.util.Date;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
+import net.fhirfactory.pegacorn.petasos.model.topology.NodeElementFunctionToken;
 
 /**
  *
@@ -37,9 +38,9 @@ public class ContinuityID {
     private FDNToken presentParcelInstanceID;
     private FDNToken presentWUAEpisodeID;
     private FDNToken previousWUPInstanceID;
-    private FDNToken previousWUPTypeID;
+    private NodeElementFunctionToken previousWUPFunctionToken;
     private FDNToken presentWUPInstanceID;
-    private FDNToken presentWUPTypeID;
+    private NodeElementFunctionToken presentWUPFunctionToken;
     private Date creationDate;
 
     public ContinuityID(FDNToken previousParcelInstanceID, FDNToken presentParcelInstanceID, FDNToken previousWUPInstanceID, FDNToken presentWUPInstanceID, Date creationDate) {
@@ -48,9 +49,9 @@ public class ContinuityID {
         this.presentParcelInstanceID = null;
         this.presentWUAEpisodeID = null;
         this.previousWUPInstanceID = null;
-        this.previousWUPTypeID = null;
+        this.previousWUPFunctionToken = null;
         this.presentWUPInstanceID = null;
-        this.presentWUPTypeID = null;
+        this.presentWUPFunctionToken = null;
         this.creationDate = null;
         this.previousParcelInstanceID = previousParcelInstanceID;
         this.presentParcelInstanceID = presentParcelInstanceID;
@@ -65,9 +66,9 @@ public class ContinuityID {
         this.presentParcelInstanceID = null;
         this.presentWUAEpisodeID = null;
         this.previousWUPInstanceID = null;
-        this.previousWUPTypeID = null;
+        this.previousWUPFunctionToken = null;
         this.presentWUPInstanceID = null;
-        this.presentWUPTypeID = null;
+        this.presentWUPFunctionToken = null;
         this.creationDate = null;
         this.previousParcelInstanceID = previousParcelInstanceID;
         this.presentParcelInstanceID = presentParcelInstanceID;
@@ -82,9 +83,9 @@ public class ContinuityID {
         this.presentParcelInstanceID = null;
         this.presentWUAEpisodeID = null;
         this.previousWUPInstanceID = null;
-        this.previousWUPTypeID = null;
+        this.previousWUPFunctionToken = null;
         this.presentWUPInstanceID = null;
-        this.presentWUPTypeID = null;
+        this.presentWUPFunctionToken = null;
         this.creationDate = Date.from(Instant.now());
     }
 
@@ -94,36 +95,36 @@ public class ContinuityID {
         this.presentParcelInstanceID = null;
         this.presentWUAEpisodeID = null;
         this.previousWUPInstanceID = null;
-        this.previousWUPTypeID = null;
+        this.previousWUPFunctionToken = null;
         this.presentWUPInstanceID = null;
-        this.presentWUPTypeID = null;
+        this.presentWUPFunctionToken = null;
         this.creationDate = null;
         if(originalRecord.hasCreationDate()){
             this.creationDate = originalRecord.getCreationDate();
         }
         if(originalRecord.hasPresentParcelInstanceID()){
-            this.presentParcelInstanceID = new FDNToken(originalRecord.getPresentParcelInstanceID());
+            this.presentParcelInstanceID = originalRecord.getPresentParcelInstanceID();
         }
         if(originalRecord.hasPresentWUAEpisodeID()){
-            this.presentWUAEpisodeID = new FDNToken(originalRecord.getPresentWUAEpisodeID());
+            this.presentWUAEpisodeID = originalRecord.getPresentWUAEpisodeID();
         }
         if(originalRecord.hasPresentWUPInstanceID()){
-            this.presentWUPInstanceID = new FDNToken(originalRecord.getPresentWUPInstanceID());
+            this.presentWUPInstanceID = originalRecord.getPresentWUPInstanceID();
         }
-        if(originalRecord.hasPresentWUPTypeID()){
-            this.presentWUPTypeID = new FDNToken(originalRecord.getPresentWUPTypeID());
+        if(originalRecord.hasPresentWUPFunctionToken()){
+            this.presentWUPFunctionToken = originalRecord.getPresentWUPFunctionToken();
         }
         if(originalRecord.hasPreviousParcelInstanceID()){
-            this.previousParcelInstanceID = new FDNToken(originalRecord.getPreviousParcelInstanceID());
+            this.previousParcelInstanceID = originalRecord.getPreviousParcelInstanceID();
         }
         if(originalRecord.hasPreviousWUAEpisodeID()){
-            this.previousWUAEpisodeID = new FDNToken(originalRecord.getPreviousWUAEpisodeID());
+            this.previousWUAEpisodeID = originalRecord.getPreviousWUAEpisodeID();
         }
         if(originalRecord.hasPreviousWUPInstanceID()){
-            this.previousWUPInstanceID = new FDNToken(originalRecord.getPresentWUPInstanceID());
+            this.previousWUPInstanceID = originalRecord.getPresentWUPInstanceID();
         }
-        if(originalRecord.hasPreviousWUPTypeID()){
-            this.previousWUPTypeID = new FDNToken(originalRecord.getPresentWUPTypeID());
+        if(originalRecord.hasPreviousWUPFunctionToken()){
+            this.previousWUPFunctionToken = originalRecord.getPresentWUPFunctionToken();
         }
     }
     
@@ -236,35 +237,35 @@ public class ContinuityID {
         this.presentWUAEpisodeID = presentWUAEpisodeID;
     }
 
-    public boolean hasPreviousWUPTypeID(){
-        if(this.previousWUPTypeID==null){
+    public boolean hasPreviousWUPFunctionToken(){
+        if(this.previousWUPFunctionToken==null){
             return(false);
         } else {
             return(true);
         }
     }
 
-    public FDNToken getPreviousWUPTypeID() {
-        return previousWUPTypeID;
+    public NodeElementFunctionToken getPreviousWUPFunctionToken() {
+        return previousWUPFunctionToken;
     }
 
-    public void setPreviousWUPTypeID(FDNToken previousWUPTypeID) {
-        this.previousWUPTypeID = previousWUPTypeID;
+    public void setPreviousWUPFunctionToken(NodeElementFunctionToken previousWUPFunctionToken) {
+        this.previousWUPFunctionToken = previousWUPFunctionToken;
     }
 
-    public boolean hasPresentWUPTypeID(){
-        if(this.previousWUPTypeID==null){
+    public boolean hasPresentWUPFunctionToken(){
+        if(this.previousWUPFunctionToken==null){
             return(false);
         } else {
             return(true);
         }
     }
-    public FDNToken getPresentWUPTypeID() {
-        return presentWUPTypeID;
+    public NodeElementFunctionToken getPresentWUPFunctionToken() {
+        return presentWUPFunctionToken;
     }
 
-    public void setPresentWUPTypeID(FDNToken presentWUPTypeID) {
-        this.presentWUPTypeID = presentWUPTypeID;
+    public void setPresentWUPFunctionToken(NodeElementFunctionToken presentWUPFunctionToken) {
+        this.presentWUPFunctionToken = presentWUPFunctionToken;
     }
 
     @Override
@@ -294,8 +295,8 @@ public class ContinuityID {
             presentResilienceParcelInstanceIDString = "(presentParcelInstanceID:null)";
         }
         String previousWUPTypeIDString;
-        if(hasPreviousWUPTypeID()) {
-            previousWUPTypeIDString = "(previousWUPTypeID:" + this.previousWUPTypeID.toString() + ")";
+        if(hasPreviousWUPFunctionToken()) {
+            previousWUPTypeIDString = "(previousWUPTypeID:" + this.previousWUPFunctionToken.toString() + ")";
         } else {
             previousWUPTypeIDString = "(previousWUPTypeID:null)";
         }
@@ -306,8 +307,8 @@ public class ContinuityID {
             previousWUPInstanceIDString = "(previousWUPInstanceIDString:null)";
         }
         String presentWUPTypeIDString;
-        if(hasPresentWUPTypeID()) {
-            presentWUPTypeIDString = "(presentWUPTypeID:" + this.presentWUPTypeID.toString() + ")";
+        if(hasPresentWUPFunctionToken()) {
+            presentWUPTypeIDString = "(presentWUPTypeID:" + this.presentWUPFunctionToken.toString() + ")";
         } else {
             presentWUPTypeIDString = "(presentWUPTypeID:null)";
         }

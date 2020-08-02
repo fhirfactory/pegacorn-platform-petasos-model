@@ -28,6 +28,7 @@ import net.fhirfactory.pegacorn.petasos.model.resilience.parcel.ResilienceParcel
 
 import java.time.Instant;
 import java.util.Date;
+import net.fhirfactory.pegacorn.petasos.model.topology.NodeElementFunctionToken;
 
 public class ParcelStatusElement {
 
@@ -70,8 +71,8 @@ public class ParcelStatusElement {
         return (this.activityID.getPresentWUPInstanceID());
     }
 
-    public FDNToken getWupTypeID() {
-        return (this.activityID.getPresentWUPTypeID());
+    public NodeElementFunctionToken getWUPFunctionToken() {
+        return (this.activityID.getPresentWUPFunctionToken());
     }
 
     public ContinuityID getActivityID() {
