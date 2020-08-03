@@ -202,7 +202,7 @@ public class Topic {
                             this.datasetType = TopicTypeEnum.DATASET_TOPIC_GROUP;
                             break;
                         case 6:
-                            this.datasetType = TopicTypeEnum.DATASET_TOPIC_QUALIFIER;
+                            this.datasetType = TopicTypeEnum.DATASET_SUB_TOPIC;
                             break;
                         case 5:
                         default:

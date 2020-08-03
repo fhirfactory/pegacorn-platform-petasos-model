@@ -29,7 +29,7 @@ public enum TopicTypeEnum {
     DATASET_DEFINER("dataset_definer"),
     DATASET_TOPIC_GROUP("dataset_topic_group"),
     DATASET_TOPIC("dataset_topic"), 
-    DATASET_TOPIC_QUALIFIER("dataset_topic_qualifier");
+    DATASET_SUB_TOPIC("dataset_sub_topic");
    
     private String topicType;
 

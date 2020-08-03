@@ -176,7 +176,7 @@ public class UoW {
     }
 
     public void setIngresContent(UoWPayload ingresContent) {
-        this.ingresContent = new UoWPayload(ingresContent);
+        this.ingresContent = ingresContent;
         generateInstanceID();
     }
 

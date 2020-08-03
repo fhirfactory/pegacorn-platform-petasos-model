@@ -50,6 +50,8 @@ public class EndpointElement {
     private Object isServerLock;
     private String toStringString;
     private Object toStringStringLock;
+    private ElementDerivationTypeEnum derivedType;
+    private Object derivedTypeLock;
 
     public EndpointElement() {
         this.endpointFunctionID = null;
@@ -62,6 +64,7 @@ public class EndpointElement {
         this.isServer = false;
         this.port = null;
         this.topologyElementStatus = null;
+        this.derivedType = null;
         this.endpointTypeLock = new Object();
         this.endpointFunctionIDLock = new Object();
         this.topologyElementStatusLock = new Object();
@@ -72,6 +75,7 @@ public class EndpointElement {
         this.portLock = new Object();
         this.isServerLock = new Object();
         this.toStringStringLock = new Object();
+        this.derivedTypeLock = new Object();
     }
 
     public EndpointElementTypeEnum getEndpointType() {
@@ -193,5 +197,13 @@ public class EndpointElement {
                     "(isServer=" + isServer + ")" +
                     '}';
         }
+    }
+
+    public ElementDerivationTypeEnum getDerivedType() {
+        return derivedType;
+    }
+
+    public void setDerivedType(ElementDerivationTypeEnum derivedType) {
+        this.derivedType = derivedType;
     }
 }
