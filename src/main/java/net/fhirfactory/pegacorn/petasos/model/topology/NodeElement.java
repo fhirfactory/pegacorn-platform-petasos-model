@@ -31,6 +31,7 @@ import net.fhirfactory.pegacorn.common.model.FDNTokenSet;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Mark A. Hunter
@@ -329,5 +330,49 @@ public class NodeElement {
         token.setFunctionID(this.nodeInstanceID);
         token.setVersion(this.version);
         return(token);        
+    }
+
+    @Override
+    public String toString() {
+        return "NodeElement{" +
+                "(nodeArchetype=" + nodeArchetype + ")," +
+                "(nodeMapStatus=" + nodeMapStatus + ")," +
+                "(nodeInstanceID=" + nodeInstanceID + ")," +
+                "(nodeFunctionID=" + nodeFunctionID + ")," +
+                "(links=" + links + ")," +
+                "(endpoints=" + endpoints + ")," +
+                "(containedElements=" + containedElements + ")," +
+                "(containingElementID=" + containingElementID + ")," +
+                "(version='" + version + '\'' + ")," +
+                "(resilienceMode=" + resilienceMode + ")," +
+                "(concurrencyMode=" + concurrencyMode + ")," +
+                "(elementExtensions=" + elementExtensions + ")," +
+                "(instanceInPlace=" + instanceInPlace +")" +
+                "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NodeElement that = (NodeElement) o;
+        return isInstanceInPlace() == that.isInstanceInPlace() &&
+                getNodeArchetype() == that.getNodeArchetype() &&
+                getNodeMapStatus() == that.getNodeMapStatus() &&
+                Objects.equals(getNodeInstanceID(), that.getNodeInstanceID()) &&
+                Objects.equals(getNodeFunctionID(), that.getNodeFunctionID()) &&
+                Objects.equals(getLinks(), that.getLinks()) &&
+                Objects.equals(getEndpoints(), that.getEndpoints()) &&
+                Objects.equals(getContainedElements(), that.getContainedElements()) &&
+                Objects.equals(getContainingElementID(), that.getContainingElementID()) &&
+                Objects.equals(getVersion(), that.getVersion()) &&
+                getResilienceMode() == that.getResilienceMode() &&
+                getConcurrencyMode() == that.getConcurrencyMode() &&
+                Objects.equals(getElementExtensions(), that.getElementExtensions());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNodeArchetype(), getNodeMapStatus(), getNodeInstanceID(), getNodeFunctionID(), getLinks(), getEndpoints(), getContainedElements(), getContainingElementID(), getVersion(), getResilienceMode(), getConcurrencyMode(), getElementExtensions(), isInstanceInPlace());
     }
 }

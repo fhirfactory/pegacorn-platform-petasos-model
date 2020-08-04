@@ -23,6 +23,8 @@ package net.fhirfactory.pegacorn.petasos.model.topics;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 
+import java.util.Objects;
+
 /**
  *
  * @author Mark A. Hunter
@@ -57,5 +59,22 @@ public class TopicToken {
     public void setVersion(String version) {
         this.version = version;
     }
-    
+
+    @Override
+    public String toString() {
+        return "TopicToken{(identifier=" + identifier + "),(version=" + version + ")}";
+    }
+
+    public boolean equals(TopicToken otherToken) {
+        if (this == otherToken) return true;
+        if ((otherToken == null) || (getClass() != otherToken.getClass())) return false;
+        if (!this.getIdentifier().equals(otherToken.getIdentifier())) return false;
+        if (!this.getVersion().contentEquals(otherToken.getVersion())) return false;
+        return(true);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdentifier(), getVersion());
+    }
 }
