@@ -27,9 +27,9 @@ import net.fhirfactory.pegacorn.common.model.FDNToken;
 import java.util.Objects;
 
 public class LinkElement {
-    private FDNToken endpointA;
-    private FDNToken endpointB;
-    private FDNToken linkID;
+    private EndpointElementIdentifier endpointA;
+    private EndpointElementIdentifier endpointB;
+    private LinkElementIdentifier linkID;
     private String friendlyName;
     private LinkElementStatusEnum status;
     private LinkElementTypeEnum linkType;
@@ -45,29 +45,29 @@ public class LinkElement {
         this.toStringString = null;
     }
 
-    public FDNToken getEndpointA() {
+    public EndpointElementIdentifier getEndpointA() {
         return endpointA;
     }
 
-    public void setEndpointA(FDNToken endpointA) {
+    public void setEndpointA(EndpointElementIdentifier endpointA) {
         this.endpointA = endpointA;
         generateToString();
     }
 
-    public FDNToken getEndpointB() {
+    public EndpointElementIdentifier getEndpointB() {
         return endpointB;
     }
 
-    public void setEndpointB(FDNToken endpointB) {
+    public void setEndpointB(EndpointElementIdentifier endpointB) {
         this.endpointB = endpointB;
         generateToString();
     }
 
-    public FDNToken getLinkID() {
+    public LinkElementIdentifier getLinkID() {
         return linkID;
     }
 
-    public void setLinkID(FDNToken linkID) {
+    public void setLinkID(LinkElementIdentifier linkID) {
         this.linkID = linkID;
         generateToString();
     }

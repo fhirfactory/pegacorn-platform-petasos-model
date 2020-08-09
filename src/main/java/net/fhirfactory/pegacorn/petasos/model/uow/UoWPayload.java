@@ -23,12 +23,14 @@ package net.fhirfactory.pegacorn.petasos.model.uow;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Mark A. Hunter
  */
 public class UoWPayload {
-    private FDNToken payloadInstanceID;
+    private static final Logger LOG = LoggerFactory.getLogger(UoWPayload.class);
     private TopicToken payloadTopicID;
     private String payload;
 
@@ -40,7 +42,6 @@ public class UoWPayload {
     public UoWPayload(UoWPayload originalUoWPayload) {
         payload = originalUoWPayload.getPayload();
         payloadTopicID = originalUoWPayload.getPayloadTopicID();
-        payloadInstanceID = originalUoWPayload.getPayloadInstanceID();
     }
 
     public UoWPayload(TopicToken payloadType, String payloadContent){
@@ -49,26 +50,33 @@ public class UoWPayload {
     }
 
     public String getPayload() {
+        LOG.debug(".getPayload(): Entry");
+        LOG.debug(".getPayload(): Exit, returning Payload (String) --> {}", this.payload);
         return payload;
     }
 
     public void setPayload(String payload) {
+        LOG.debug(".setPayload(): Entry, payload (String) --> {}", payload);
         this.payload = payload;
     }
 
     public TopicToken getPayloadTopicID() {
+        LOG.debug(".getPayloadTopicID(): Entry");
+        LOG.debug(".getPayloadTopicID(): Exit, returning Payload (String) --> {}", this.payloadTopicID);
         return payloadTopicID;
     }
 
     public void setPayloadTopicID(TopicToken payloadTopicID) {
+        LOG.debug(".setPayloadTopicID(): Entry, payloadTopicID (TopicToken) --> {}", payloadTopicID);
         this.payloadTopicID = payloadTopicID;
     }
 
-    public FDNToken getPayloadInstanceID() {
-        return payloadInstanceID;
-    }
-
-    public void setPayloadInstanceID(FDNToken payloadInstanceID) {
-        this.payloadInstanceID = payloadInstanceID;
+    @Override
+    public String toString(){
+        String payloadToString = "UoWPayload{" +
+                "(payloadTopicID="+ payloadTopicID + ")," +
+                "(payload=" +payload + ")" +
+                "}";
+        return(payloadToString);
     }
 }

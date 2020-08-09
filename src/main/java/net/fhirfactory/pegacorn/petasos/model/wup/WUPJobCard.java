@@ -115,7 +115,7 @@ public class WUPJobCard {
     }
 
     public boolean hasGrantedStatus(){
-        if(this.requestedStatus==null){
+        if(this.grantedStatus==null){
             return(false);
         } else {
             return(true);

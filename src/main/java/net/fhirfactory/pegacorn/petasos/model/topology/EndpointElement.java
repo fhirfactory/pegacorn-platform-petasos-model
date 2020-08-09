@@ -34,18 +34,20 @@ public class EndpointElement {
     private Object endpointTypeLock;
     private ElementMapStatusEnum topologyElementStatus;
     private Object topologyElementStatusLock;
-    private FDNToken endpointInstanceID;
+    private EndpointElementIdentifier endpointInstanceID;
     private Object endpointInstanceIDLock;
     private FDNToken endpointFunctionID;
     private Object endpointFunctionIDLock;
-    private FDNToken containingNodeID;
+    private NodeElementIdentifier containingNodeID;
     private Object containingNodeIDLock;
     private String friendlyName;
     private Object friendlyNameLock;
     private String hostname;
     private Object hostnameLock;
-    private Integer port;
-    private Object portLock;
+    private String internalPort;
+    private Object internalPortLock;
+    private String exposedPort;
+    private Object exposedPortLock;
     private boolean isServer;
     private Object isServerLock;
     private String toStringString;
@@ -62,9 +64,10 @@ public class EndpointElement {
         this.friendlyName = null;
         this.hostname = null;
         this.isServer = false;
-        this.port = null;
+        this.internalPort = null;
         this.topologyElementStatus = null;
         this.derivedType = null;
+        this.exposedPort = null;
         this.endpointTypeLock = new Object();
         this.endpointFunctionIDLock = new Object();
         this.topologyElementStatusLock = new Object();
@@ -72,10 +75,11 @@ public class EndpointElement {
         this.containingNodeIDLock = new Object();
         this.friendlyNameLock = new Object();
         this.hostnameLock = new Object();
-        this.portLock = new Object();
+        this.internalPortLock = new Object();
         this.isServerLock = new Object();
         this.toStringStringLock = new Object();
         this.derivedTypeLock = new Object();
+        this.exposedPortLock = new Object();
     }
 
     public EndpointElementTypeEnum getEndpointType() {
@@ -100,11 +104,11 @@ public class EndpointElement {
         }
     }
 
-    public FDNToken getEndpointInstanceID() {
+    public EndpointElementIdentifier getEndpointInstanceID() {
         return endpointInstanceID;
     }
 
-    public void setEndpointInstanceID(FDNToken endpointInstanceID) {
+    public void setEndpointInstanceID(EndpointElementIdentifier endpointInstanceID) {
         synchronized (endpointInstanceIDLock) {
             this.endpointInstanceID = endpointInstanceID;
             generateToString();
@@ -122,11 +126,11 @@ public class EndpointElement {
         }
     }
 
-    public FDNToken getContainingNodeID() {
+    public NodeElementIdentifier getContainingNodeID() {
         return containingNodeID;
     }
 
-    public void setContainingNodeID(FDNToken containingNodeID) {
+    public void setContainingNodeID(NodeElementIdentifier containingNodeID) {
         synchronized (containingNodeIDLock) {
             this.containingNodeID = containingNodeID;
             generateToString();
@@ -155,16 +159,27 @@ public class EndpointElement {
         }
     }
 
-    public Integer getPort() {
-        return port;
+    public String getInternalPort() {
+        return internalPort;
     }
 
-    public void setPort(Integer port) {
-        synchronized (portLock) {
-            this.port = port;
+    public void setInternalPort(String port) {
+        synchronized (internalPortLock) {
+            this.internalPort = port;
 
             generateToString();
         }
+    }
+    
+    public String getExposedPort() {
+    	return(this.exposedPort);
+    }
+    
+    public void setExposedPort(String port) {
+    	synchronized(exposedPortLock) {
+    		this.exposedPort = port;
+    		generateToString();
+    	}
     }
 
     public boolean isServer() {
@@ -186,14 +201,15 @@ public class EndpointElement {
     private void generateToString() {
         synchronized (this.toStringStringLock) {
             this.toStringString = "EndpointElement{" +
-                    "(endpointType:" + endpointType + ")," +
+                    "(endpointType=" + endpointType + ")," +
                     "(topologyElementStatus=" + topologyElementStatus + ")," +
-                    "(endpointInstanceID:" + endpointInstanceID + ")," +
-                    "(endpointFunctionID:" + endpointFunctionID + ")," +
-                    "(containingNodeID:" + containingNodeID + ")," +
-                    "(friendlyName:" + friendlyName + ")," +
-                    "(hostname:" + hostname + ")," +
-                    "(port:" + port + ")," +
+                    "(endpointInstanceID=" + endpointInstanceID + ")," +
+                    "(endpointFunctionID=" + endpointFunctionID + ")," +
+                    "(containingNodeID=" + containingNodeID + ")," +
+                    "(friendlyName=" + friendlyName + ")," +
+                    "(hostname=" + hostname + ")," +
+                    "(internalPort=" + internalPort + ")," +
+                    "(exposedPort=" + exposedPort + ")," +
                     "(isServer=" + isServer + ")" +
                     '}';
         }

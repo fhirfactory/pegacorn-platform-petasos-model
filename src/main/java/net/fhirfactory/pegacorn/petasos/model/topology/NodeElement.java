@@ -27,11 +27,13 @@ import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnu
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.fhirfactory.pegacorn.common.model.FDNTokenSet;
-
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Mark A. Hunter
@@ -45,17 +47,17 @@ public class NodeElement {
     private Object nodeArchetypeLock;
     private ElementMapStatusEnum nodeMapStatus;
     private Object nodeMapStatusLock;
-    private FDNToken nodeInstanceID;
+    private NodeElementIdentifier nodeInstanceID;
     private Object nodeInstanceIDLock;
     private FDNToken nodeFunctionID;
     private Object nodeFunctionIDLock;
-    private FDNTokenSet links;
+    private HashSet<LinkElementIdentifier> links;
     private Object linksLock;
-    private FDNTokenSet endpoints;
+    private HashSet<EndpointElementIdentifier> endpoints;
     private Object endpointsLock;
-    private FDNTokenSet containedElements;
+    private HashSet<NodeElementIdentifier> containedElements;
     private Object containedElementsLock;
-    private FDNToken containingElementID;
+    private NodeElementIdentifier containingElementID;
     private Object containingElementIDLock;
     private String version;
     private Object versionLock;
@@ -67,6 +69,8 @@ public class NodeElement {
     private Object elementExtensionsLock;
     private boolean instanceInPlace;
     private Object instanceInPlaceLock;
+    
+
 
     public NodeElement() {
         // 1st, clear the deck
@@ -97,9 +101,9 @@ public class NodeElement {
         this.instanceInPlace = false;
         this.instanceInPlaceLock = new Object();
         // Now establish the basic structure
-        this.endpoints = new FDNTokenSet();
-        this.links = new FDNTokenSet();
-        this.containedElements = new FDNTokenSet();
+        this.endpoints = new HashSet<EndpointElementIdentifier>();
+        this.links = new HashSet<LinkElementIdentifier>();
+        this.containedElements = new HashSet<NodeElementIdentifier>();
         this.elementExtensions = new HashMap<String, String>();
         this.nodeInstanceID = null;
         this.nodeMapStatus = null;
@@ -107,7 +111,7 @@ public class NodeElement {
         this.instanceInPlace = false;
     }
 
-    public NodeElement(FDNToken elementInstanceID) {
+    public NodeElement(NodeElementIdentifier elementInstanceID) {
         // 1st, clear the deck
         this.nodeArchetype = null;
         this.nodeArchetypeLock = new Object();
@@ -136,9 +140,9 @@ public class NodeElement {
         this.instanceInPlace = false;
         this.instanceInPlaceLock = new Object();
         // Now establish the basic structure
-        this.endpoints = new FDNTokenSet();
-        this.links = new FDNTokenSet();
-        this.containedElements = new FDNTokenSet();
+        this.endpoints = new HashSet<EndpointElementIdentifier>();
+        this.links = new HashSet<LinkElementIdentifier>();
+        this.containedElements = new HashSet<NodeElementIdentifier>();
         this.elementExtensions = new HashMap<String, String>();
         this.nodeInstanceID = elementInstanceID;
         this.concurrencyMode = ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE;
@@ -147,11 +151,11 @@ public class NodeElement {
         this.instanceInPlace = false;
     }
 
-    public FDNToken getContainingElementID() {
+    public NodeElementIdentifier getContainingElementID() {
         return containingElementID;
     }
 
-    public void setContainingElementID(FDNToken containingElementID) {
+    public void setContainingElementID(NodeElementIdentifier containingElementID) {
         synchronized (this.containingElementIDLock) {
             this.containingElementID = containingElementID;
         }
@@ -177,27 +181,27 @@ public class NodeElement {
         }
     }
 
-    public FDNToken getNodeInstanceID() {
+    public NodeElementIdentifier getIdentifier() {
         return nodeInstanceID;
     }
 
-    public void setNodeInstanceID(FDNToken nodeInstanceID) {
+    public void setNodeInstanceID(NodeElementIdentifier nodeInstanceID) {
         synchronized (nodeInstanceIDLock) {
             this.nodeInstanceID = nodeInstanceID;
         }
     }
 
-    public FDNTokenSet getLinks() {
+    public Set<LinkElementIdentifier> getLinks() {
         return links;
     }
 
-    public void setLinks(FDNTokenSet links) {
+    public void setLinks(HashSet<LinkElementIdentifier> links) {
         synchronized (linksLock) {
             this.links = links;
         }
     }
 
-    public FDNTokenSet getEndpoints() {
+    public Set<EndpointElementIdentifier> getEndpoints() {
         return endpoints;
     }
 
@@ -209,25 +213,22 @@ public class NodeElement {
         }
     }
 
-    public void setEndpoints(FDNTokenSet endpoints) {
+    public void setEndpoints(HashSet<EndpointElementIdentifier> endpoints) {
         synchronized (endpointsLock) {
             this.endpoints = endpoints;
         }
     }
 
-    public void addEndpoint(FDNToken newEndpoint) {
+    public void addEndpoint(EndpointElementIdentifier newEndpoint) {
         synchronized (endpointsLock) {
-            if (!hasContainedElements()) {
-                this.endpoints = new FDNTokenSet();
-            }
-            this.endpoints.addElement(newEndpoint);
+            this.endpoints.add(newEndpoint);
         }
     }
 
-    public void removeEndpoint(FDNToken containedEndpoint) {
+    public void removeEndpoint(EndpointElementIdentifier containedEndpoint) {
         synchronized (endpointsLock) {
             if (hasEndpoints()) {
-                this.endpoints.removeElement(containedEndpoint);
+                this.endpoints.remove(containedEndpoint);
             }
         }
     }
@@ -260,29 +261,26 @@ public class NodeElement {
         }
     }
 
-    public FDNTokenSet getContainedElements() {
+    public Set<NodeElementIdentifier> getContainedElements() {
         return (this.containedElements);
     }
 
-    public void setContainedElements(FDNTokenSet newContainedElementSet) {
+    public void setContainedElements(HashSet<NodeElementIdentifier> newContainedElementSet) {
         synchronized (containedElementsLock) {
             this.containedElements = newContainedElementSet;
         }
     }
 
-    public void addContainedElement(FDNToken newContainedElement) {
+    public void addContainedElement(NodeElementIdentifier newContainedElement) {
         synchronized (containedElementsLock) {
-            if (!hasContainedElements()) {
-                this.containedElements = new FDNTokenSet();
-            }
-            this.containedElements.addElement(newContainedElement);
+            this.containedElements.add(newContainedElement);
         }
     }
 
-    public void removeContainedElement(FDNToken containedElementToBeRemoved) {
+    public void removeContainedElement(NodeElementIdentifier containedElementToBeRemoved) {
         synchronized (containedElementsLock) {
             if (hasContainedElements()) {
-                this.containedElements.removeElement(containedElementToBeRemoved);
+                this.containedElements.remove(containedElementToBeRemoved);
             }
         }
     }
@@ -359,7 +357,7 @@ public class NodeElement {
         return isInstanceInPlace() == that.isInstanceInPlace() &&
                 getNodeArchetype() == that.getNodeArchetype() &&
                 getNodeMapStatus() == that.getNodeMapStatus() &&
-                Objects.equals(getNodeInstanceID(), that.getNodeInstanceID()) &&
+                Objects.equals(getIdentifier(), that.getIdentifier()) &&
                 Objects.equals(getNodeFunctionID(), that.getNodeFunctionID()) &&
                 Objects.equals(getLinks(), that.getLinks()) &&
                 Objects.equals(getEndpoints(), that.getEndpoints()) &&
@@ -373,6 +371,30 @@ public class NodeElement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNodeArchetype(), getNodeMapStatus(), getNodeInstanceID(), getNodeFunctionID(), getLinks(), getEndpoints(), getContainedElements(), getContainingElementID(), getVersion(), getResilienceMode(), getConcurrencyMode(), getElementExtensions(), isInstanceInPlace());
+        return Objects.hash(getNodeArchetype(), getNodeMapStatus(), getIdentifier(), getNodeFunctionID(), getLinks(), getEndpoints(), getContainedElements(), getContainingElementID(), getVersion(), getResilienceMode(), getConcurrencyMode(), getElementExtensions(), isInstanceInPlace());
     }
+    
+    public String extractNodeKey() {
+    	String key = this.getIdentifier().toString() + "."+getVersion();
+    	return(key);
+    }
+    
+    public List<String> debugPrint(String linePrefix) {
+    	ArrayList<String> stringList = new ArrayList<String>();
+		stringList.add(linePrefix + " (NodeElement).nodeArchetype (NodeElementTypeEnum) --> " + nodeArchetype);
+		stringList.add(linePrefix + " (NodeElement).nodeMapStatus (ElementMapStatusEnum) --> " + nodeMapStatus);
+		stringList.add(linePrefix + " (NodeElement).nodeInstanceID (NodeElementIdentifier) --> " + nodeInstanceID);
+		stringList.add(linePrefix + " (NodeElement).nodeFunctionID (FDNToken) --> " + nodeFunctionID);
+		stringList.add(linePrefix + " (NodeElement).links (Map<LinkElementIdentifier>) --> " + links);
+		stringList.add(linePrefix + " (NodeElement).endpoints (Map<EndpointElementIdentifier>) --> " + endpoints);
+		stringList.add(linePrefix + " (NodeElement).containedElements (Map<NodeElementIdentifier>) --> " + containedElements);
+		stringList.add(linePrefix + " (NodeElement).containingElementID (NodeElementIdentifier) --> " + containingElementID);
+		stringList.add(linePrefix + " (NodeElement).version (String) --> " + version);
+		stringList.add(linePrefix + " (NodeElement).resilienceMode (ResilienceModeEnum) --> " + resilienceMode);
+		stringList.add(linePrefix + " (NodeElement).concurrencyMode (ConcurrencyModeEnum) --> " + concurrencyMode);
+		stringList.add(linePrefix + " (NodeElement).elementExtensions (HashMap<String, String>) --> " + "Not Printed"); // elementExtensions + "),"
+		stringList.add(linePrefix + " (NodeElement).instanceInPlace (boolean) --> " + instanceInPlace);
+		return(stringList);
+    }
+
 }

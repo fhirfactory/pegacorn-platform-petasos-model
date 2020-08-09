@@ -64,11 +64,11 @@ public class ParcelStatusElement {
     }
 
     public FDNToken getParcelInstanceID() {
-        return (this.activityID.getPresentParcelInstanceID());
+        return (this.activityID.getPresentParcelIdentifier());
     }
 
     public FDNToken getWupInstanceID() {
-        return (this.activityID.getPresentWUPInstanceID());
+        return (this.activityID.getPresentWUPIdentifier());
     }
 
     public NodeElementFunctionToken getWUPFunctionToken() {

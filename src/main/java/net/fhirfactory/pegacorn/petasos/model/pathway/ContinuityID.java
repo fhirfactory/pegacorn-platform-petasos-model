@@ -19,229 +19,297 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package net.fhirfactory.pegacorn.petasos.model.pathway;
 
 import java.time.Instant;
 import java.util.Date;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
+import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.EpisodeIdentifier;
+import net.fhirfactory.pegacorn.petasos.model.resilience.parcel.ResilienceParcelIdentifier;
 import net.fhirfactory.pegacorn.petasos.model.topology.NodeElementFunctionToken;
+import net.fhirfactory.pegacorn.petasos.model.wup.WUPIdentifier;
 
 /**
  *
  * @author Mark A. Hunter
  */
 public class ContinuityID {
-    
-    private FDNToken previousParcelInstanceID;
-    private FDNToken previousWUAEpisodeID;
-    private FDNToken presentParcelInstanceID;
-    private FDNToken presentWUAEpisodeID;
-    private FDNToken previousWUPInstanceID;
-    private NodeElementFunctionToken previousWUPFunctionToken;
-    private FDNToken presentWUPInstanceID;
-    private NodeElementFunctionToken presentWUPFunctionToken;
-    private Date creationDate;
 
-    public ContinuityID(FDNToken previousParcelInstanceID, FDNToken presentParcelInstanceID, FDNToken previousWUPInstanceID, FDNToken presentWUPInstanceID, Date creationDate) {
-        this.previousParcelInstanceID = null;
-        this.previousWUAEpisodeID = null;
-        this.presentParcelInstanceID = null;
-        this.presentWUAEpisodeID = null;
-        this.previousWUPInstanceID = null;
+    private ResilienceParcelIdentifier previousParcelIdenifier;
+    private Object previousParcelIdentifierLock;
+    private EpisodeIdentifier previousEpisodeIdentifier;
+    private Object previousEpisodeIdentifierLock;
+    private ResilienceParcelIdentifier presentParcelIdentifier;
+    private Object presentParcelIdenifierLock;
+    private EpisodeIdentifier presentEpisodeIdentifier;
+    private Object presentEpisodeIdentifierLock;
+    private WUPIdentifier previousWUPIdentifier;
+    private Object previousWUPIdentifierLock;
+    private NodeElementFunctionToken previousWUPFunctionToken;
+    private Object previousWUPFunctionTokenLock;
+    private WUPIdentifier presentWUPIdentifier;
+    private Object presentWUPIdentifierLock;
+    private NodeElementFunctionToken presentWUPFunctionToken;
+    private Object presentWUPFunctionTokenLock;
+    private Date creationDate;
+    private Object creationDateLock;
+
+    public ContinuityID(ResilienceParcelIdentifier previousParcelInstanceID, ResilienceParcelIdentifier presentParcelInstanceID, WUPIdentifier previousWUPInstanceID, WUPIdentifier presentWUPInstanceID, Date creationDate) {
+        // Clear the deck
+        this.previousParcelIdenifier = null;
+        this.previousEpisodeIdentifier = null;
+        this.presentParcelIdentifier = null;
+        this.presentEpisodeIdentifier = null;
+        this.previousWUPIdentifier = null;
         this.previousWUPFunctionToken = null;
-        this.presentWUPInstanceID = null;
+        this.presentWUPIdentifier = null;
         this.presentWUPFunctionToken = null;
         this.creationDate = null;
-        this.previousParcelInstanceID = previousParcelInstanceID;
-        this.presentParcelInstanceID = presentParcelInstanceID;
-        this.previousWUPInstanceID = previousWUPInstanceID;
-        this.presentWUPInstanceID = presentWUPInstanceID;
+        this.creationDateLock = new Object();
+        this.presentParcelIdenifierLock = new Object();
+        this.presentEpisodeIdentifierLock = new Object();
+        this.presentWUPFunctionTokenLock = new Object();
+        this.presentWUPIdentifierLock = new Object();
+        this.previousParcelIdentifierLock = new Object();
+        this.previousEpisodeIdentifierLock = new Object();
+        this.previousWUPFunctionTokenLock = new Object();
+        this.previousWUPIdentifierLock = new Object();
+        // Set Values
+        this.previousParcelIdenifier = previousParcelInstanceID;
+        this.presentParcelIdentifier = presentParcelInstanceID;
+        this.previousWUPIdentifier = previousWUPInstanceID;
+        this.presentWUPIdentifier = presentWUPInstanceID;
         this.creationDate = creationDate;
     }
 
-    public ContinuityID(FDNToken previousParcelInstanceID, FDNToken presentParcelInstanceID, FDNToken previousWUPInstanceID, FDNToken presentWUPInstanceID) {
-        this.previousParcelInstanceID = null;
-        this.previousWUAEpisodeID = null;
-        this.presentParcelInstanceID = null;
-        this.presentWUAEpisodeID = null;
-        this.previousWUPInstanceID = null;
+    public ContinuityID(ResilienceParcelIdentifier previousParcelInstanceID, ResilienceParcelIdentifier presentParcelInstanceID, WUPIdentifier previousWUPInstanceID, WUPIdentifier presentWUPInstanceID) {
+        this.previousParcelIdenifier = null;
+        this.previousEpisodeIdentifier = null;
+        this.presentParcelIdentifier = null;
+        this.presentEpisodeIdentifier = null;
+        this.previousWUPIdentifier = null;
         this.previousWUPFunctionToken = null;
-        this.presentWUPInstanceID = null;
+        this.presentWUPIdentifier = null;
         this.presentWUPFunctionToken = null;
         this.creationDate = null;
-        this.previousParcelInstanceID = previousParcelInstanceID;
-        this.presentParcelInstanceID = presentParcelInstanceID;
-        this.previousWUPInstanceID = previousWUPInstanceID;
-        this.presentWUPInstanceID = presentWUPInstanceID;
+        this.creationDateLock = new Object();
+        this.presentParcelIdenifierLock = new Object();
+        this.presentEpisodeIdentifierLock = new Object();
+        this.presentWUPFunctionTokenLock = new Object();
+        this.presentWUPIdentifierLock = new Object();
+        this.previousParcelIdentifierLock = new Object();
+        this.previousEpisodeIdentifierLock = new Object();
+        this.previousWUPFunctionTokenLock = new Object();
+        this.previousWUPIdentifierLock = new Object();
+        // Set Values
+        this.previousParcelIdenifier = previousParcelInstanceID;
+        this.presentParcelIdentifier = presentParcelInstanceID;
+        this.previousWUPIdentifier = previousWUPInstanceID;
+        this.presentWUPIdentifier = presentWUPInstanceID;
         this.creationDate = Date.from(Instant.now());
     }
 
     public ContinuityID() {
-        this.previousParcelInstanceID = null;
-        this.previousWUAEpisodeID = null;
-        this.presentParcelInstanceID = null;
-        this.presentWUAEpisodeID = null;
-        this.previousWUPInstanceID = null;
+        this.previousParcelIdenifier = null;
+        this.previousEpisodeIdentifier = null;
+        this.presentParcelIdentifier = null;
+        this.presentEpisodeIdentifier = null;
+        this.previousWUPIdentifier = null;
         this.previousWUPFunctionToken = null;
-        this.presentWUPInstanceID = null;
+        this.presentWUPIdentifier = null;
         this.presentWUPFunctionToken = null;
         this.creationDate = Date.from(Instant.now());
+        this.creationDateLock = new Object();
+        this.presentParcelIdenifierLock = new Object();
+        this.presentEpisodeIdentifierLock = new Object();
+        this.presentWUPFunctionTokenLock = new Object();
+        this.presentWUPIdentifierLock = new Object();
+        this.previousParcelIdentifierLock = new Object();
+        this.previousEpisodeIdentifierLock = new Object();
+        this.previousWUPFunctionTokenLock = new Object();
+        this.previousWUPIdentifierLock = new Object();
     }
 
-    public ContinuityID(ContinuityID originalRecord){
-        this.previousParcelInstanceID = null;
-        this.previousWUAEpisodeID = null;
-        this.presentParcelInstanceID = null;
-        this.presentWUAEpisodeID = null;
-        this.previousWUPInstanceID = null;
+    public ContinuityID(ContinuityID originalRecord) {
+        this.previousParcelIdenifier = null;
+        this.previousEpisodeIdentifier = null;
+        this.presentParcelIdentifier = null;
+        this.presentEpisodeIdentifier = null;
+        this.previousWUPIdentifier = null;
         this.previousWUPFunctionToken = null;
-        this.presentWUPInstanceID = null;
+        this.presentWUPIdentifier = null;
         this.presentWUPFunctionToken = null;
         this.creationDate = null;
-        if(originalRecord.hasCreationDate()){
+        this.creationDateLock = new Object();
+        this.presentParcelIdenifierLock = new Object();
+        this.presentEpisodeIdentifierLock = new Object();
+        this.presentWUPFunctionTokenLock = new Object();
+        this.presentWUPIdentifierLock = new Object();
+        this.previousParcelIdentifierLock = new Object();
+        this.previousEpisodeIdentifierLock = new Object();
+        this.previousWUPFunctionTokenLock = new Object();
+        this.previousWUPIdentifierLock = new Object();
+        // Set Values
+        if (originalRecord.hasCreationDate()) {
             this.creationDate = originalRecord.getCreationDate();
         }
-        if(originalRecord.hasPresentParcelInstanceID()){
-            this.presentParcelInstanceID = originalRecord.getPresentParcelInstanceID();
+        if (originalRecord.hasPresentParcelIdentifier()) {
+            this.presentParcelIdentifier = originalRecord.getPresentParcelIdentifier();
         }
-        if(originalRecord.hasPresentWUAEpisodeID()){
-            this.presentWUAEpisodeID = originalRecord.getPresentWUAEpisodeID();
+        if (originalRecord.hasPresentEpisodeIdentifier()) {
+            this.presentEpisodeIdentifier = originalRecord.getPresentEpisodeIdentifier();
         }
-        if(originalRecord.hasPresentWUPInstanceID()){
-            this.presentWUPInstanceID = originalRecord.getPresentWUPInstanceID();
+        if (originalRecord.hasPresentWUPIdentifier()) {
+            this.presentWUPIdentifier = originalRecord.getPresentWUPIdentifier();
         }
-        if(originalRecord.hasPresentWUPFunctionToken()){
+        if (originalRecord.hasPresentWUPFunctionToken()) {
             this.presentWUPFunctionToken = originalRecord.getPresentWUPFunctionToken();
         }
-        if(originalRecord.hasPreviousParcelInstanceID()){
-            this.previousParcelInstanceID = originalRecord.getPreviousParcelInstanceID();
+        if (originalRecord.hasPreviousParcelIdentifier()) {
+            this.previousParcelIdenifier = originalRecord.getPreviousParcelIdentifier();
         }
-        if(originalRecord.hasPreviousWUAEpisodeID()){
-            this.previousWUAEpisodeID = originalRecord.getPreviousWUAEpisodeID();
+        if (originalRecord.hasPreviousEpisodeIdentifier()) {
+            this.previousEpisodeIdentifier = originalRecord.getPreviousEpisodeIdentifier();
         }
-        if(originalRecord.hasPreviousWUPInstanceID()){
-            this.previousWUPInstanceID = originalRecord.getPresentWUPInstanceID();
+        if (originalRecord.hasPreviousWUPIdentifier()) {
+            this.previousWUPIdentifier = originalRecord.getPresentWUPIdentifier();
         }
-        if(originalRecord.hasPreviousWUPFunctionToken()){
+        if (originalRecord.hasPreviousWUPFunctionToken()) {
             this.previousWUPFunctionToken = originalRecord.getPresentWUPFunctionToken();
         }
     }
-    
-    
-    public boolean hasPreviousParcelInstanceID(){
-        if(this.previousParcelInstanceID ==null){
-            return(false);
+
+    public boolean hasPreviousParcelIdentifier() {
+        if (this.previousParcelIdenifier == null) {
+            return (false);
         } else {
-            return(true);
+            return (true);
         }
     }
-    
-    public FDNToken getPreviousParcelInstanceID() {
-        return previousParcelInstanceID;
+
+    public ResilienceParcelIdentifier getPreviousParcelIdentifier() {
+        return previousParcelIdenifier;
     }
 
-    public void setPreviousParcelInstanceID(FDNToken previousParcelInstanceID) {
-        this.previousParcelInstanceID = previousParcelInstanceID;
-    }
-
-    public boolean hasPresentParcelInstanceID(){
-        if(this.presentParcelInstanceID ==null){
-            return(false);
-        } else {
-            return(true);
+    public void setPreviousParcelIdentifier(ResilienceParcelIdentifier previousParcelID) {
+        synchronized (previousParcelIdentifierLock) {
+            this.previousParcelIdenifier = previousParcelID;
         }
     }
-    public FDNToken getPresentParcelInstanceID() {
-        return presentParcelInstanceID;
-    }
 
-    public void setPresentParcelInstanceID(FDNToken presentParcelInstanceID) {
-        this.presentParcelInstanceID = presentParcelInstanceID;
-    }
-
-    public boolean hasPreviousWUPInstanceID(){
-        if(this.previousWUPInstanceID==null){
-            return(false);
+    public boolean hasPresentParcelIdentifier() {
+        if (this.presentParcelIdentifier == null) {
+            return (false);
         } else {
-            return(true);
+            return (true);
         }
     }
-    public FDNToken getPreviousWUPInstanceID() {
-        return previousWUPInstanceID;
+
+    public ResilienceParcelIdentifier getPresentParcelIdentifier() {
+        return presentParcelIdentifier;
     }
 
-    public void setPreviousWUPInstanceID(FDNToken previousWUPInstanceID) {
-        this.previousWUPInstanceID = previousWUPInstanceID;
-    }
-
-    public boolean hasPresentWUPInstanceID(){
-        if(this.presentWUPInstanceID==null){
-            return(false);
-        } else {
-            return(true);
+    public void setPresentParcelIdentifier(ResilienceParcelIdentifier presentParcelID) {
+        synchronized (presentParcelIdenifierLock) {
+            this.presentParcelIdentifier = presentParcelID;
         }
     }
-    public FDNToken getPresentWUPInstanceID() {
-        return presentWUPInstanceID;
-    }
 
-    public void setPresentWUPInstanceID(FDNToken presentWUPInstanceID) {
-        this.presentWUPInstanceID = presentWUPInstanceID;
-    }
-
-    public boolean hasCreationDate(){
-        if(this.creationDate==null){
-            return(false);
+    public boolean hasPreviousWUPIdentifier() {
+        if (this.previousWUPIdentifier == null) {
+            return (false);
         } else {
-            return(true);
+            return (true);
         }
     }
+
+    public WUPIdentifier getPreviousWUPIdentifier() {
+        return previousWUPIdentifier;
+    }
+
+    public void setPreviousWUPIdentifier(WUPIdentifier previousWUPID) {
+        synchronized (previousWUPIdentifierLock) {
+            this.previousWUPIdentifier = previousWUPID;
+        }
+    }
+
+    public boolean hasPresentWUPIdentifier() {
+        if (this.presentWUPIdentifier == null) {
+            return (false);
+        } else {
+            return (true);
+        }
+    }
+
+    public WUPIdentifier getPresentWUPIdentifier() {
+        return presentWUPIdentifier;
+    }
+
+    public void setPresentWUPIdentifier(WUPIdentifier presentWUPID) {
+        synchronized (presentWUPIdentifierLock) {
+            this.presentWUPIdentifier = presentWUPID;
+        }
+    }
+
+    public boolean hasCreationDate() {
+        if (this.creationDate == null) {
+            return (false);
+        } else {
+            return (true);
+        }
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+        synchronized (creationDateLock) {
+            this.creationDate = creationDate;
+        }
     }
 
-    public boolean hasPreviousWUAEpisodeID(){
-        if(this.previousWUAEpisodeID ==null) {
+    public boolean hasPreviousEpisodeIdentifier() {
+        if (this.previousEpisodeIdentifier == null) {
             return (false);
         } else {
-            return(true);
+            return (true);
         }
     }
 
-    public FDNToken getPreviousWUAEpisodeID() {
-        return previousWUAEpisodeID;
+    public EpisodeIdentifier getPreviousEpisodeIdentifier() {
+        return previousEpisodeIdentifier;
     }
 
-    public void setPreviousWUAEpisodeID(FDNToken previousWUAEpisodeID) {
-        this.previousWUAEpisodeID = previousWUAEpisodeID;
-    }
-
-    public boolean hasPresentWUAEpisodeID(){
-        if(this.presentWUAEpisodeID ==null){
-            return(false);
-        } else {
-            return(true);
+    public void setPreviousWUAEpisodeID(EpisodeIdentifier previousWUAEpisodeID) {
+        synchronized (previousEpisodeIdentifierLock) {
+            this.previousEpisodeIdentifier = previousWUAEpisodeID;
         }
     }
 
-    public FDNToken getPresentWUAEpisodeID() {
-        return presentWUAEpisodeID;
-    }
-
-    public void setPresentWUAEpisodeID(FDNToken presentWUAEpisodeID) {
-        this.presentWUAEpisodeID = presentWUAEpisodeID;
-    }
-
-    public boolean hasPreviousWUPFunctionToken(){
-        if(this.previousWUPFunctionToken==null){
-            return(false);
+    public boolean hasPresentEpisodeIdentifier() {
+        if (this.presentEpisodeIdentifier == null) {
+            return (false);
         } else {
-            return(true);
+            return (true);
+        }
+    }
+
+    public EpisodeIdentifier getPresentEpisodeIdentifier() {
+        return presentEpisodeIdentifier;
+    }
+
+    public void setPresentWUAEpisodeID(EpisodeIdentifier presentWUAEpisodeID) {
+        synchronized (presentEpisodeIdentifierLock) {
+            this.presentEpisodeIdentifier = presentWUAEpisodeID;
+        }
+    }
+
+    public boolean hasPreviousWUPFunctionToken() {
+        if (this.previousWUPFunctionToken == null) {
+            return (false);
+        } else {
+            return (true);
         }
     }
 
@@ -250,90 +318,96 @@ public class ContinuityID {
     }
 
     public void setPreviousWUPFunctionToken(NodeElementFunctionToken previousWUPFunctionToken) {
-        this.previousWUPFunctionToken = previousWUPFunctionToken;
-    }
-
-    public boolean hasPresentWUPFunctionToken(){
-        if(this.previousWUPFunctionToken==null){
-            return(false);
-        } else {
-            return(true);
+        synchronized (previousWUPFunctionTokenLock) {
+            this.previousWUPFunctionToken = previousWUPFunctionToken;
         }
     }
+
+    public boolean hasPresentWUPFunctionToken() {
+        if (this.presentWUPFunctionToken == null) {
+            return (false);
+        } else {
+            return (true);
+        }
+    }
+
     public NodeElementFunctionToken getPresentWUPFunctionToken() {
         return presentWUPFunctionToken;
     }
 
     public void setPresentWUPFunctionToken(NodeElementFunctionToken presentWUPFunctionToken) {
-        this.presentWUPFunctionToken = presentWUPFunctionToken;
+        synchronized (presentWUPFunctionTokenLock) {
+            this.presentWUPFunctionToken = presentWUPFunctionToken;
+        }
     }
 
     @Override
-    public String toString(){
-        String previousParcelTypeIDString;
-        if(hasPreviousWUAEpisodeID()) {
-            previousParcelTypeIDString = "(previousWUAEpisodeID:" + this.previousWUAEpisodeID.toString() + ")";
-        } else {
-            previousParcelTypeIDString = "(previousWUAEpisodeID:null)";
-        }
+    public String toString() {
         String previousResilienceParcelInstanceIDString;
-        if(hasPreviousParcelInstanceID()) {
-            previousResilienceParcelInstanceIDString = "(previousParcelInstanceID:" + this.previousParcelInstanceID.toString() + ")";
+        if (hasPreviousParcelIdentifier()) {
+            previousResilienceParcelInstanceIDString = "(previousParcelIdenifier:" + this.previousParcelIdenifier.toString() + ")";
         } else {
-            previousResilienceParcelInstanceIDString = "(previousParcelInstanceID:null)";
-        }
-        String presentResilienceParcelTypeIDString;
-        if(hasPresentWUAEpisodeID()) {
-            presentResilienceParcelTypeIDString = "(presentWUAEpisodeID:" + this.presentWUAEpisodeID.toString() + ")";
-        } else {
-            presentResilienceParcelTypeIDString = "(presentWUAEpisodeID:null)";
+            previousResilienceParcelInstanceIDString = "(previousParcelIdenifier:null)";
         }
         String presentResilienceParcelInstanceIDString;
-        if(hasPresentParcelInstanceID()) {
-            presentResilienceParcelInstanceIDString = "(presentParcelInstanceID:" + this.presentParcelInstanceID.toString() + ")";
+        if (hasPresentParcelIdentifier()) {
+            presentResilienceParcelInstanceIDString = "(presentParcelIdentifier:" + this.presentParcelIdentifier.toString() + ")";
         } else {
-            presentResilienceParcelInstanceIDString = "(presentParcelInstanceID:null)";
+            presentResilienceParcelInstanceIDString = "(presentParcelIdentifier:null)";
         }
-        String previousWUPTypeIDString;
-        if(hasPreviousWUPFunctionToken()) {
-            previousWUPTypeIDString = "(previousWUPTypeID:" + this.previousWUPFunctionToken.toString() + ")";
+        String presentWUAEpisodeString;
+        if (hasPresentEpisodeIdentifier()) {
+            presentWUAEpisodeString = "(presentEpisodeIdentifier:" + this.presentEpisodeIdentifier.toString() + ")";
         } else {
-            previousWUPTypeIDString = "(previousWUPTypeID:null)";
+            presentWUAEpisodeString = "(presentEpisodeIdentifier:null)";
+        }
+        String previousWUAEpisodeString;
+        if (hasPreviousEpisodeIdentifier()) {
+            previousWUAEpisodeString = "(previousEpisodeIdentifier:" + this.previousEpisodeIdentifier.toString() + ")";
+        } else {
+            previousWUAEpisodeString = "(previousEpisodeIdentifier:null)";
+        }
+        String previousWUPFunctionTokenString;
+        if (hasPreviousWUPFunctionToken()) {
+            previousWUPFunctionTokenString = "(previousWUPFunctionToken:" + this.previousWUPFunctionToken.toString() + ")";
+        } else {
+            previousWUPFunctionTokenString = "(previousWUPFunctionToken:null)";
+        }
+        String presentWUPFunctionTokenString;
+        if (hasPresentWUPFunctionToken()) {
+            presentWUPFunctionTokenString = "(presentWUPFunctionToken:" + this.presentWUPFunctionToken.toString() + ")";
+        } else {
+            presentWUPFunctionTokenString = "(presentWUPFunctionToken:null)";
         }
         String previousWUPInstanceIDString;
-        if(hasPreviousWUPInstanceID()) {
-            previousWUPInstanceIDString = "(previousWUPInstanceIDString:" + this.previousWUPInstanceID.toString() + ")";
+        if (hasPreviousWUPIdentifier()) {
+            previousWUPInstanceIDString = "(previousWUPIdentifier:" + this.previousWUPIdentifier.toString() + ")";
         } else {
-            previousWUPInstanceIDString = "(previousWUPInstanceIDString:null)";
-        }
-        String presentWUPTypeIDString;
-        if(hasPresentWUPFunctionToken()) {
-            presentWUPTypeIDString = "(presentWUPTypeID:" + this.presentWUPFunctionToken.toString() + ")";
-        } else {
-            presentWUPTypeIDString = "(presentWUPTypeID:null)";
+            previousWUPInstanceIDString = "(previousWUPIdentifier:null)";
         }
         String presentWUPInstanceIDString;
-        if(hasPresentParcelInstanceID()) {
-            presentWUPInstanceIDString = "(presentWUPInstanceID:" + this.presentWUPInstanceID.toString() + ")";
+        if (hasPresentWUPIdentifier()) {
+            presentWUPInstanceIDString = "(presentWUPIdentifier:" + this.presentWUPIdentifier.toString() + ")";
         } else {
-            presentWUPInstanceIDString = "(presentWUPInstanceID:null)";
+            presentWUPInstanceIDString = "(presentWUPIdentifier:null)";
         }
         String creationDateString;
-        if(hasCreationDate()) {
+        if (hasCreationDate()) {
             creationDateString = "(creationDate:" + this.creationDate.toString() + ")";
         } else {
             creationDateString = "(creationDate:null)";
         }
-        String theString = "ContinuityID={"
-                + previousParcelTypeIDString + ","
+        String theString = "ContinuityID{"
                 + previousResilienceParcelInstanceIDString + ","
-                + presentResilienceParcelTypeIDString + ","
                 + presentResilienceParcelInstanceIDString + ","
-                + previousWUPTypeIDString + ","
+                + previousWUAEpisodeString + ","
+                + presentWUAEpisodeString + ","
+                + previousWUPFunctionTokenString + ","
+                + presentWUPFunctionTokenString + ","
                 + previousWUPInstanceIDString + ","
-                + presentWUPTypeIDString + ","
                 + presentWUPInstanceIDString + ","
                 + creationDateString + "}";
-        return(theString);
+        return (theString);
     }
+    
 }

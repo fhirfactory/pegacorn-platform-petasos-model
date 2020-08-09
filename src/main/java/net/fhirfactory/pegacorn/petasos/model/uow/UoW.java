@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
@@ -66,13 +67,12 @@ public class UoW {
     //
     // Constructors
     //
-    public UoW(FDNToken uowTypeID, UoWPayload inputPayload) {
-        LOG.debug(".UoW(): Constructor: functionFDN --> {}, uowTypeID --> {}, inputPayload -->{}", uowTypeID, inputPayload);
+    public UoW(UoWPayload inputPayload) {
+        LOG.debug(".UoW(): Constructor: functionFDN --> {}, uowTypeID --> {}, inputPayload -->{}", inputPayload);
         this.ingresContent = new UoWPayload(inputPayload);
         this.egressContent = new UoWPayloadSet();
         this.processingOutcome = UoWProcessingOutcomeEnum.UOW_OUTCOME_NOTSTARTED;
-        this.typeID = new FDNToken(uowTypeID);
-        FDN instanceFDN = new FDN(uowTypeID);
+        this.typeID = new FDNToken(inputPayload.getPayloadTopicID().getIdentifier());
         generateInstanceID();
         if (LOG.isTraceEnabled()) {
             LOG.trace("UoW(FDN, UoWPayloadSet): this.typeID -->, this.instanceID -->{}", this.typeID, this.instanceID);
@@ -86,15 +86,6 @@ public class UoW {
         this.egressContent.getPayloadElements().addAll(originalUoW.getEgressContent().getPayloadElements());
         this.processingOutcome = originalUoW.getProcessingOutcome();
         this.typeID = new FDNToken(originalUoW.getTypeID());
-        generateInstanceID();
-    }
-
-    public UoW(FDNToken uowTypeID) {
-        LOG.debug(".UoW(): Constructor: uowTypeFDN --> {}", uowTypeID);
-        this.typeID = uowTypeID;
-        generateInstanceID();
-        this.ingresContent = null;
-        this.egressContent = new UoWPayloadSet();
     }
 
     private void generateInstanceID() {
@@ -295,5 +286,22 @@ public class UoW {
         } else {
             return (null);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UoW uoW = (UoW) o;
+        return Objects.equals(getTypeID(), uoW.getTypeID()) &&
+                Objects.equals(getInstanceID(), uoW.getInstanceID()) &&
+                Objects.equals(getIngresContent(), uoW.getIngresContent()) &&
+                Objects.equals(getEgressContent(), uoW.getEgressContent()) &&
+                getProcessingOutcome() == uoW.getProcessingOutcome();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTypeID(), getInstanceID(), getIngresContent(), getEgressContent(), getProcessingOutcome());
     }
 }

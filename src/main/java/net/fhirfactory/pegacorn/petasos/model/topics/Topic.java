@@ -32,6 +32,8 @@ import net.fhirfactory.pegacorn.common.model.FDNTokenSet;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 import net.fhirfactory.pegacorn.common.model.FDN;
 
 /**
@@ -214,11 +216,39 @@ public class Topic {
             }
         }
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Topic topic = (Topic) o;
+        return getDatasetType() == topic.getDatasetType() &&
+                Objects.equals(getIdentifier(), topic.getIdentifier()) &&
+                Objects.equals(getContainedDatasets(), topic.getContainedDatasets()) &&
+                Objects.equals(getContainingDataset(), topic.getContainingDataset()) &&
+                Objects.equals(version, topic.version);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDatasetType(), getIdentifier(), getContainedDatasets(), getContainingDataset(), version);
+    }
+
     public TopicToken getTopicToken(){
         TopicToken token = new TopicToken();
         token.setIdentifier(this.identifier);
         token.setVersion(this.version);
         return(token);
+    }
+
+    @Override
+    public String toString() {
+        return "Topic{" +
+                "datasetType=" + datasetType +
+                ", identifier=" + identifier +
+                ", containedDatasets=" + containedDatasets +
+                ", containingDataset=" + containingDataset +
+                ", version='" + version + '\'' +
+                '}';
     }
 }

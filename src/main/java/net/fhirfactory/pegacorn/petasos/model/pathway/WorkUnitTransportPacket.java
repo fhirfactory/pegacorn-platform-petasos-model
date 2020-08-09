@@ -26,6 +26,7 @@ import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.ParcelSt
 import net.fhirfactory.pegacorn.petasos.model.uow.UoW;
 
 import java.util.Date;
+import java.util.Objects;
 
 import net.fhirfactory.pegacorn.petasos.model.wup.WUPJobCard;
 import org.slf4j.Logger;
@@ -34,41 +35,57 @@ import org.slf4j.LoggerFactory;
 public class WorkUnitTransportPacket {
     private static final Logger LOG = LoggerFactory.getLogger(WorkUnitTransportPacket.class);
 
-    private String fromElement;
-    private String toElement;
+    private ContinuityID packetID;
+    private Object packetIDLock;
     private Date senderSendDate;
+    private Object senderSendDateLock;
     private boolean isARetry;
+    private Object isARetryLock;
     private WUPJobCard currentJobCard;
+    private Object currentJobCardLock;
     private ParcelStatusElement currentParcelStatus;
+    private Object currentParcelStatusLock;
     private UoW payload;
+    private Object payloadLock;
     private String generatedString;
+    private Object generatedStringLock;
     
-    public WorkUnitTransportPacket(String toElement, Date senderSendDate, UoW payload) {
-        this.toElement = toElement;
+    public WorkUnitTransportPacket(ContinuityID newPacketID, Date senderSendDate, UoW payload) {
         this.senderSendDate = senderSendDate;
         this.payload = payload;
+        this.packetID = newPacketID;
         this.isARetry = false;
-        this.fromElement = null;
         this.currentJobCard = null;
         this.currentParcelStatus = null;
         this.generatedString = null;
+        this.senderSendDateLock = new Object();
+        this.payloadLock = new Object();
+        this.isARetryLock = new Object();
+        this.currentJobCardLock = new Object();
+        this.currentParcelStatusLock = new Object();
+        this.generatedStringLock = new Object();
+        this.packetIDLock = new Object();
         generateString();
     }
 
     public WorkUnitTransportPacket(WorkUnitTransportPacket originalPacket) {
-        this.fromElement = null;
-        this.currentJobCard = null;
-        this.currentParcelStatus = null;
-        this.toElement = null;
         this.senderSendDate = null;
         this.payload = null;
+        this.packetID = null;
+        this.isARetry = false;
+        this.currentJobCard = null;
+        this.currentParcelStatus = null;
         this.generatedString = null;
+        this.senderSendDateLock = new Object();
+        this.payloadLock = new Object();
+        this.isARetryLock = new Object();
+        this.currentJobCardLock = new Object();
+        this.currentParcelStatusLock = new Object();
+        this.generatedStringLock = new Object();
+        this.packetIDLock = new Object();
         // Assign values if available
-        if(originalPacket.hasFromElement()) {
-            this.fromElement = originalPacket.getFromElement();
-        }
-        if(originalPacket.hasToElement()) {
-            this.toElement = originalPacket.getToElement();
+        if(originalPacket.hasPacketID()) {
+            this.packetID = originalPacket.getPacketID();
         }
         if(originalPacket.hasSenderSendDate()) {
             this.senderSendDate = originalPacket.getSenderSendDate();
@@ -95,8 +112,10 @@ public class WorkUnitTransportPacket {
     }
 
     public void setRetryCount(boolean retry) {
-        this.isARetry = retry;
-        generateString();
+        synchronized (isARetryLock) {
+            this.isARetry = retry;
+            generateString();
+        }
     }
     
     // CurrentJobCard helper/bean methods
@@ -114,8 +133,10 @@ public class WorkUnitTransportPacket {
     }
 
     public void setCurrentJobCard(WUPJobCard currentJobCard) {
-        this.currentJobCard = currentJobCard;
-        generateString();
+        synchronized (currentJobCardLock) {
+            this.currentJobCard = currentJobCard;
+            generateString();
+        }
     }
 
     // CurrentParcelStatus helper/bean methods
@@ -133,45 +154,10 @@ public class WorkUnitTransportPacket {
     }
 
     public void setCurrentParcelStatus(ParcelStatusElement currentParcelStatus) {
-        this.currentParcelStatus = currentParcelStatus;
-        generateString();
-    }
-
-    // FromElement helper/bean methods
-
-    public boolean hasFromElement(){
-        if(this.fromElement==null){
-            return(false);
-        } else {
-            return(true);
+        synchronized (currentParcelStatusLock) {
+            this.currentParcelStatus = currentParcelStatus;
+            generateString();
         }
-    }
-
-    public String getFromElement() {
-        return fromElement;
-    }
-
-    public void setFromElement(String fromElement) {
-        this.fromElement = fromElement;
-        generateString();
-    }
-
-    // ToElement helper/bean methods
-
-    public boolean hasToElement(){
-        if(this.toElement==null){
-            return(false);
-        } else {
-            return(true);
-        }
-    }
-    public String getToElement() {
-        return toElement;
-    }
-
-    public void setToElement(String toElement) {
-        this.toElement = toElement;
-        generateString();
     }
 
     // SenderSendDate helper/bean methods
@@ -188,8 +174,31 @@ public class WorkUnitTransportPacket {
     }
 
     public void setSenderSendDate(Date senderSendDate) {
-        this.senderSendDate = senderSendDate;
-        generateString();
+        synchronized (senderSendDateLock) {
+            this.senderSendDate = senderSendDate;
+            generateString();
+        }
+    }
+
+    // PacketID helper/bean methods
+
+    public boolean hasPacketID(){
+        if(this.packetID == null){
+            return(false);
+        } else {
+            return(true);
+        }
+    }
+
+    public ContinuityID getPacketID(){
+        return(this.packetID);
+    }
+
+    public void setPacketID(ContinuityID newPacketID){
+        synchronized(packetIDLock){
+            this.packetID = newPacketID;
+            this.generateString();
+        }
     }
 
     // Payload helper/bean methods
@@ -207,54 +216,49 @@ public class WorkUnitTransportPacket {
     }
 
     public void setPayload(UoW payload) {
-        this.payload = payload;
-        generateString();
+        synchronized (payloadLock) {
+            this.payload = payload;
+            generateString();
+        }
     }
 
     // toString method(s)
 
     private void generateString(){
-        String fromElementString;
+        String packetIDString;
         String currentJobCardString;
         String currentParcelStatusString;
-        String toElementString;
         String senderSendDateString;
         String payloadString;
         String isARetryString;
         if(hasPayload()){
-            payloadString = "(payload:" + this.payload.toString() + ")";
+            payloadString = "(payload:" + this.payload + ")";
         } else {
             payloadString = "(payload:null)";
         }
-        if(hasFromElement()){
-            fromElementString = "(fromElement:" + this.fromElement.toString() + ")";
+        if(hasPacketID()){
+            packetIDString = "(packetID:" + this.packetID + ")";
         } else {
-            fromElementString = "(fromElement:null)";
+            packetIDString = "(packetID:null)";
         }
         if(hasCurrentParcelStatus()){
-            currentParcelStatusString = "(currentParcelStatus:" + this.currentParcelStatus.toString() + ")";
+            currentParcelStatusString = "(currentParcelStatus:" + this.currentParcelStatus + ")";
         } else {
             currentParcelStatusString = "(currentParcelStatus:null)";
         }
-        if(hasToElement()){
-            toElementString = "(toElement:" + this.toElement.toString() + ")";
-        } else {
-            toElementString = "(toElement:null)";
-        }
         if(hasSenderSendDate()){
-            senderSendDateString = "(senderSendDate:" + this.senderSendDate.toString() + ")";
+            senderSendDateString = "(senderSendDate:" + this.senderSendDate + ")";
         } else {
             senderSendDateString = "(senderSendDate:null)";
         }
         if(hasCurrentParcelStatus()){
-            currentJobCardString = "(currentJobCard:" + this.currentJobCard.toString() + ")";
+            currentJobCardString = "(currentJobCard:" + this.currentJobCard + ")";
         } else {
             currentJobCardString = "(currentJobCard:null)";
         }
         isARetryString = "(isARetry:" + this.isARetry + ")";
         this.generatedString = "WorkUnitTransportPacket={"
-                + fromElementString + ","
-                + toElementString + ","
+                + packetIDString + ","
                 + senderSendDateString + ","
                 + currentJobCardString + ","
                 + currentParcelStatusString + ","
@@ -267,4 +271,21 @@ public class WorkUnitTransportPacket {
         return(this.generatedString);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkUnitTransportPacket that = (WorkUnitTransportPacket) o;
+        return isARetry == that.isARetry &&
+                Objects.equals(getPacketID(), that.getPacketID()) &&
+                Objects.equals(getSenderSendDate(), that.getSenderSendDate()) &&
+                Objects.equals(getCurrentJobCard(), that.getCurrentJobCard()) &&
+                Objects.equals(getCurrentParcelStatus(), that.getCurrentParcelStatus()) &&
+                Objects.equals(getPayload(), that.getPayload());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPacketID(), getSenderSendDate(), isARetry, getCurrentJobCard(), getCurrentParcelStatus(), getPayload());
+    }
 }

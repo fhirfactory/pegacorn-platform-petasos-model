@@ -65,11 +65,13 @@ public class TopicToken {
         return "TopicToken{(identifier=" + identifier + "),(version=" + version + ")}";
     }
 
-    public boolean equals(TopicToken otherToken) {
+    @Override
+    public boolean equals(Object otherToken) {
         if (this == otherToken) return true;
         if ((otherToken == null) || (getClass() != otherToken.getClass())) return false;
-        if (!this.getIdentifier().equals(otherToken.getIdentifier())) return false;
-        if (!this.getVersion().contentEquals(otherToken.getVersion())) return false;
+        TopicToken otherTopicToken = (TopicToken)otherToken;
+        if (!this.getIdentifier().equals(otherTopicToken.getIdentifier())) return false;
+        if (!this.getVersion().contentEquals(otherTopicToken.getVersion())) return false;
         return(true);
     }
 

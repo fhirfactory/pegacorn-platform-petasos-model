@@ -61,9 +61,12 @@ public class UoWPayloadSet {
             return (newString);
         }
         Iterator<UoWPayload> payloadIterator = payloadElements.iterator();
-        newString = new String("UoWPayloadSet={(");
+        newString = new String("UoWPayloadSet={");
         while (payloadIterator.hasNext()) {
-            newString = newString + payloadIterator.next().getPayload();
+            UoWPayload payload = payloadIterator.next();
+            newString = newString + "(";
+            newString = newString + "(PayloadTopicID=" + payload.getPayloadTopicID() +"),";
+            newString = newString + "(Payload=" + payload.getPayload() + ")";
             newString = newString + ")";
             if (payloadIterator.hasNext()) {
                 newString = newString + ",";
