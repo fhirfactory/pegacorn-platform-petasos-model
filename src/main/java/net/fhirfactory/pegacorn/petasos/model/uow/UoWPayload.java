@@ -21,10 +21,10 @@
  */
 package net.fhirfactory.pegacorn.petasos.model.uow;
 
-import net.fhirfactory.pegacorn.common.model.FDNToken;
-import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.fhirfactory.pegacorn.petasos.model.topics.TopicToken;
 
 /**
  * @author Mark A. Hunter

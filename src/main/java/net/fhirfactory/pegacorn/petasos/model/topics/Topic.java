@@ -21,17 +21,12 @@
  */
 package net.fhirfactory.pegacorn.petasos.model.topics;
 
-import net.fhirfactory.pegacorn.petasos.model.topology.*;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
-import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum;
-import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.fhirfactory.pegacorn.common.model.FDNTokenSet;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import net.fhirfactory.pegacorn.common.model.FDN;
@@ -192,26 +187,26 @@ public class Topic {
                     FDN topicFDN = new FDN(this.identifier);
                     switch (topicFDN.getRDNCount()) {
                         case 1:
-                            this.datasetType = TopicTypeEnum.DATASET_SECTOR;
+                            this.datasetType = TopicTypeEnum.DATASET_DEFINER;
                             break;
                         case 2:
                             this.datasetType = TopicTypeEnum.DATASET_CATEGORY;
                             break;
                         case 3:
-                            this.datasetType = TopicTypeEnum.DATASET_DEFINER;
+                            this.datasetType = TopicTypeEnum.DATASET_SUBCATEGORY;
                             break;
                         case 4:
-                            this.datasetType = TopicTypeEnum.DATASET_TOPIC_GROUP;
+                            this.datasetType = TopicTypeEnum.DATASET_RESOURCE;
                             break;
                         case 6:
-                            this.datasetType = TopicTypeEnum.DATASET_SUB_TOPIC;
+                            this.datasetType = TopicTypeEnum.DATASET_QUALIFIER_TYPE;
                             break;
                         case 5:
                         default:
-                            this.datasetType = TopicTypeEnum.DATASET_TOPIC;
+                            this.datasetType = TopicTypeEnum.DATASET_QUALIFIER_VALUE;
                     }
                 } else {
-                    this.datasetType = TopicTypeEnum.DATASET_TOPIC;
+                    this.datasetType = TopicTypeEnum.DATASET_RESOURCE;
                 }
             }
         }

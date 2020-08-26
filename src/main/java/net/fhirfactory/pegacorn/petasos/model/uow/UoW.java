@@ -64,6 +64,11 @@ public class UoW {
      */
     private UoWProcessingOutcomeEnum processingOutcome;
 
+    /**
+     * The failure/error condition explanation
+     */
+    private String failureDescription;
+
     //
     // Constructors
     //
@@ -73,6 +78,7 @@ public class UoW {
         this.egressContent = new UoWPayloadSet();
         this.processingOutcome = UoWProcessingOutcomeEnum.UOW_OUTCOME_NOTSTARTED;
         this.typeID = new FDNToken(inputPayload.getPayloadTopicID().getIdentifier());
+        this.failureDescription = null;
         generateInstanceID();
         if (LOG.isTraceEnabled()) {
             LOG.trace("UoW(FDN, UoWPayloadSet): this.typeID -->, this.instanceID -->{}", this.typeID, this.instanceID);
@@ -80,6 +86,7 @@ public class UoW {
     }
 
     public UoW(UoW originalUoW) {
+        this.failureDescription = null;
         this.instanceID = new FDNToken(originalUoW.getInstanceID());
         this.ingresContent = new UoWPayload(originalUoW.getIngresContent());
         this.egressContent = new UoWPayloadSet();
@@ -297,11 +304,28 @@ public class UoW {
                 Objects.equals(getInstanceID(), uoW.getInstanceID()) &&
                 Objects.equals(getIngresContent(), uoW.getIngresContent()) &&
                 Objects.equals(getEgressContent(), uoW.getEgressContent()) &&
+                Objects.equals(getFailureDescription(), uoW.getFailureDescription()) &&
                 getProcessingOutcome() == uoW.getProcessingOutcome();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTypeID(), getInstanceID(), getIngresContent(), getEgressContent(), getProcessingOutcome());
+        return Objects.hash(getTypeID(), getInstanceID(), getIngresContent(), getEgressContent(), getFailureDescription(), getProcessingOutcome());
+    }
+
+    public boolean hasFailureDescription(){
+        if(this.failureDescription==null){
+            return(false);
+        } else {
+            return(true);
+        }
+    }
+
+    public String getFailureDescription() {
+        return failureDescription;
+    }
+
+    public void setFailureDescription(String failureDescription) {
+        this.failureDescription = failureDescription;
     }
 }
