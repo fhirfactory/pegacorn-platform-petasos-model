@@ -7,3 +7,10 @@
 .settings/org.eclipse.wst.common.project.facet.core.xml
 pegacorn-platform-petasos-model.iml
 *.iml
+.project
+.classpath
+.settings/org.eclipse.core.resources.prefs
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.wst.common.component
+.settings/org.eclipse.wst.common.project.facet.core.xml
+*.iml

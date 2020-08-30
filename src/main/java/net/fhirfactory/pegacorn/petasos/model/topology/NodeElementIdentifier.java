@@ -22,43 +22,45 @@
 
 package net.fhirfactory.pegacorn.petasos.model.topology;
 
-import java.util.Map;
-
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.common.model.RDN;
+
+import java.util.Map;
 
 /**
  * @author Mark A. Hunter
  * @since 2020-08-07
  */
 public class NodeElementIdentifier extends FDNToken {
-	
+
     public NodeElementIdentifier(FDNToken originalToken) {
         this.setContent(new String(originalToken.getContent()));
     }
-	
-	@Override
-	public String toString() {
-	        FDN tempFDN = new FDN(this);
-	        String simpleString = "NodeElementIdentifier{";
-	        Map<Integer, RDN> rdnSet = tempFDN.getRDNSet();
-	        int setSize = rdnSet.size();
-	        for (int counter = 0; counter < setSize; counter++) {
-	            RDN currentRDN = rdnSet.get(counter);
-	            String currentNameValue = currentRDN.getNameValue();
-	            if(currentNameValue.contains(".")){
-	                String outputString = currentNameValue.replace(".", "_");
-	                simpleString = simpleString + outputString;
-	            } else {
-	                simpleString = simpleString + currentNameValue;
-	            }
-	            if(counter < (setSize - 1)){
-	                simpleString = simpleString + ".";
-	            }
-	        }
-	        simpleString = simpleString + "}";
-	        return(simpleString);
-	}
+
+    @Override
+    public String toString() {
+        FDNToken tempToken = new FDNToken();
+        tempToken.setContent(this.getContent());
+        FDN tempFDN = new FDN(tempToken);
+        String simpleString = "NodeElementIdentifier{";
+        Map<Integer, RDN> rdnSet = tempFDN.getRDNSet();
+        int setSize = rdnSet.size();
+        for (int counter = 0; counter < setSize; counter++) {
+            RDN currentRDN = rdnSet.get(counter);
+            String currentNameValue = currentRDN.getNameValue();
+            if (currentNameValue.contains(".")) {
+                String outputString = currentNameValue.replace(".", "_");
+                simpleString = simpleString + outputString;
+            } else {
+                simpleString = simpleString + currentNameValue;
+            }
+            if (counter < (setSize - 1)) {
+                simpleString = simpleString + ".";
+            }
+        }
+        simpleString = simpleString + "}";
+        return (simpleString);
+    }
 
 }

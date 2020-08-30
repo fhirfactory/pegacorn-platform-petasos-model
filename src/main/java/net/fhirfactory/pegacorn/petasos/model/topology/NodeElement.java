@@ -148,6 +148,7 @@ public class NodeElement {
         this.concurrencyMode = ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE;
         this.resilienceMode = resilienceMode.RESILIENCE_MODE_STANDALONE;
         this.nodeMapStatus = ElementMapStatusEnum.NOT_INSTANTIATED;
+        this.version = "0.0.0";
         this.instanceInPlace = false;
     }
 
