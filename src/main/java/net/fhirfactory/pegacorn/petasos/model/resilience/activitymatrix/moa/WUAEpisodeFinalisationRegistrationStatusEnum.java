@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix;
+package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa;
 
 public enum WUAEpisodeFinalisationRegistrationStatusEnum {
     DOWNSTREAM_EPISODE_ID_NOT_REGISTERED("pegacorn.petasos.episode.successor.episode_not_registered"),

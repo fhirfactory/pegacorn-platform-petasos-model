@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix;
+package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 

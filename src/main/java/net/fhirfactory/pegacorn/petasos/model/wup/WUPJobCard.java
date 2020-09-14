@@ -26,8 +26,11 @@ import java.util.Date;
 import net.fhirfactory.pegacorn.petasos.model.pathway.ContinuityID;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WUPJobCard {
+    private static final Logger LOG = LoggerFactory.getLogger(WUPJobCard.class);
 
     private ContinuityID cardID;
     private Object cardIDLock;
@@ -49,7 +52,14 @@ public class WUPJobCard {
 
     private String toStringValue;
 
-    public WUPJobCard(ContinuityID activityID, WUPActivityStatusEnum currentStatus, WUPActivityStatusEnum requestedStatus, ConcurrencyModeEnum clusterMode, ResilienceModeEnum systemMode, Date updateDate) {
+    public WUPJobCard(
+            ContinuityID activityID, 
+            WUPActivityStatusEnum currentStatus, 
+            WUPActivityStatusEnum requestedStatus, 
+            ConcurrencyModeEnum clusterMode, 
+            ResilienceModeEnum systemMode, 
+            Date updateDate) {
+        LOG.debug(".WUPJobCard(): activityID, currentStatus, requestedStatus, clusterMode, systemMode, updateDate");
         this.cardID = null;
         this.updateDate = null;
         this.currentStatus = null;

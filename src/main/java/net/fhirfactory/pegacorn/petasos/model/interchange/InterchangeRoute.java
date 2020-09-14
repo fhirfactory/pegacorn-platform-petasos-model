@@ -54,9 +54,9 @@ public class InterchangeRoute {
     }
 
     public String getFriendlyName() {
-        String newString = "[" + this.producingWUPFDN.getUnqualifiedRDN().getNameValue() + "->" +
-                this.outboundUoWTypeFDN.getUnqualifiedRDN().getNameValue() + "->" +
-                this.consumingWUPFDN.getUnqualifiedRDN().getNameValue() + "][" +
+        String newString = "[" + this.producingWUPFDN.getUnqualifiedRDN().getValue() + "->" +
+                this.outboundUoWTypeFDN.getUnqualifiedRDN().getValue() + "->" +
+                this.consumingWUPFDN.getUnqualifiedRDN().getValue() + "][" +
                 this.instanceDiscriminator + "]";
         return(newString);
     }

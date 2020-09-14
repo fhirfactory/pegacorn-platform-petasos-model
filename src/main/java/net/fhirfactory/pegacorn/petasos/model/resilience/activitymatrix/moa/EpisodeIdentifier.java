@@ -20,9 +20,9 @@
  * SOFTWARE.
  */
 
-package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix;
+package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
@@ -42,11 +42,11 @@ public class EpisodeIdentifier extends FDNToken {
 	public String toString() {
 	        FDN tempFDN = new FDN(this);
 	        String simpleString = "WUPIdentifier{";
-	        Map<Integer, RDN> rdnSet = tempFDN.getRDNSet();
+	        ArrayList<RDN> rdnSet = tempFDN.getRDNSet();
 	        int setSize = rdnSet.size();
 	        for (int counter = 0; counter < setSize; counter++) {
 	            RDN currentRDN = rdnSet.get(counter);
-	            String currentNameValue = currentRDN.getNameValue();
+	            String currentNameValue = currentRDN.getValue();
 	            if(currentNameValue.contains(".")){
 	                String outputString = currentNameValue.replace(".", "_");
 	                simpleString = simpleString + outputString;

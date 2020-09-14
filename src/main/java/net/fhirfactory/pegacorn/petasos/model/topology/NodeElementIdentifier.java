@@ -26,7 +26,7 @@ import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.common.model.RDN;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * @author Mark A. Hunter
@@ -44,23 +44,24 @@ public class NodeElementIdentifier extends FDNToken {
         tempToken.setContent(this.getContent());
         FDN tempFDN = new FDN(tempToken);
         String simpleString = "NodeElementIdentifier{";
-        Map<Integer, RDN> rdnSet = tempFDN.getRDNSet();
-        int setSize = rdnSet.size();
-        for (int counter = 0; counter < setSize; counter++) {
-            RDN currentRDN = rdnSet.get(counter);
-            String currentNameValue = currentRDN.getNameValue();
-            if (currentNameValue.contains(".")) {
-                String outputString = currentNameValue.replace(".", "_");
+        int setSize = tempFDN.getRDNSet().size();
+        int counter = 0;
+        for (RDN currentRDN: tempFDN.getRDNSet()) {
+            String rdnValueEntry = currentRDN.getValue();
+            if (rdnValueEntry.contains(".")) {
+                String outputString = rdnValueEntry.replace(".", "_");
                 simpleString = simpleString + outputString;
             } else {
-                simpleString = simpleString + currentNameValue;
+                simpleString = simpleString + rdnValueEntry;
             }
             if (counter < (setSize - 1)) {
                 simpleString = simpleString + ".";
             }
+            counter++;
         }
         simpleString = simpleString + "}";
         return (simpleString);
     }
+
 
 }

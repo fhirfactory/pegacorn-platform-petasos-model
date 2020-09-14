@@ -22,7 +22,7 @@
 
 package net.fhirfactory.pegacorn.petasos.model.resilience.parcel;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
@@ -39,11 +39,11 @@ public class ResilienceParcelIdentifier extends FDNToken {
 	public String toString() {
 	        FDN tempFDN = new FDN(this);
 	        String simpleString = "ResilienceParcelIdentifier{";
-	        Map<Integer, RDN> rdnSet = tempFDN.getRDNSet();
+	        ArrayList<RDN> rdnSet = tempFDN.getRDNSet();
 	        int setSize = rdnSet.size();
 	        for (int counter = 0; counter < setSize; counter++) {
 	            RDN currentRDN = rdnSet.get(counter);
-	            String currentNameValue = currentRDN.getNameValue();
+	            String currentNameValue = currentRDN.getValue();
 	            if(currentNameValue.contains(".")){
 	                String outputString = currentNameValue.replace(".", "_");
 	                simpleString = simpleString + outputString;

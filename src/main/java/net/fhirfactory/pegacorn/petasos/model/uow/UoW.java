@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.Instant;
 import java.util.Objects;
+import java.util.UUID;
 
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
@@ -73,15 +74,16 @@ public class UoW {
     // Constructors
     //
     public UoW(UoWPayload inputPayload) {
-        LOG.debug(".UoW(): Constructor: functionFDN --> {}, uowTypeID --> {}, inputPayload -->{}", inputPayload);
+        LOG.debug(".UoW(): Constructor: inputPayload -->{}", inputPayload);
         this.ingresContent = new UoWPayload(inputPayload);
         this.egressContent = new UoWPayloadSet();
         this.processingOutcome = UoWProcessingOutcomeEnum.UOW_OUTCOME_NOTSTARTED;
         this.typeID = new FDNToken(inputPayload.getPayloadTopicID().getIdentifier());
+        LOG.trace(".UoW(): typeID --> {}", this.typeID);
         this.failureDescription = null;
         generateInstanceID();
         if (LOG.isTraceEnabled()) {
-            LOG.trace("UoW(FDN, UoWPayloadSet): this.typeID -->, this.instanceID -->{}", this.typeID, this.instanceID);
+            LOG.trace(".UoW(FDN, UoWPayloadSet): this.typeID --> {}, this.instanceID --> {}", this.typeID, this.instanceID);
         }
     }
 
@@ -96,16 +98,21 @@ public class UoW {
     }
 
     private void generateInstanceID() {
+        LOG.debug(".generateInstanceID(): Entry");
         if (this.ingresContent == null) {
+            LOG.trace(".generateInstanceID(): no content, so generating an instance id based on Timestamp");
             String generatedInstanceValue = Long.toString(Instant.now().getNano());
             FDN instanceFDN = new FDN(this.typeID);
             RDN newRDN = new RDN(HASH_ATTRIBUTE, generatedInstanceValue);
             instanceFDN.appendRDN(newRDN);
             this.instanceID = instanceFDN.getToken();
         } else {
+            LOG.trace(".generateInstanceID(): has content, so creating has key");
+            /*
             int payloadHash = this.ingresContent.getPayload().hashCode();
-            String payloadHashAsHex = Integer.toHexString(payloadHash);
-            RDN newRDN = new RDN(HASH_ATTRIBUTE, payloadHashAsHex);
+            String payloadHashAsHex = Integer.toHexString(payloadHash); */
+            String payload = UUID.randomUUID().toString();
+            RDN newRDN = new RDN(HASH_ATTRIBUTE, payload);
             FDN instanceFDN = new FDN(this.typeID);
             instanceFDN.appendRDN(newRDN);
             this.instanceID = instanceFDN.getToken();

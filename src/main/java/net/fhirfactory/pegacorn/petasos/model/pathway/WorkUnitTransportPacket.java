@@ -22,7 +22,7 @@
 
 package net.fhirfactory.pegacorn.petasos.model.pathway;
 
-import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.ParcelStatusElement;
+import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa.ParcelStatusElement;
 import net.fhirfactory.pegacorn.petasos.model.uow.UoW;
 
 import java.util.Date;

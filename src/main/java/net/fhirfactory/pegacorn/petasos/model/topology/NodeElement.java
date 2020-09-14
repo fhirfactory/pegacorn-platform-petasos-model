@@ -21,7 +21,9 @@
  */
 package net.fhirfactory.pegacorn.petasos.model.topology;
 
+import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
+import net.fhirfactory.pegacorn.common.model.RDN;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
 import org.slf4j.Logger;
@@ -43,6 +45,8 @@ public class NodeElement {
 
     private static final Logger LOG = LoggerFactory.getLogger(NodeElement.class);
 
+    private String friendlyName;
+    private Object friendlyNameLock;
     private NodeElementTypeEnum nodeArchetype;
     private Object nodeArchetypeLock;
     private ElementMapStatusEnum nodeMapStatus;
@@ -74,6 +78,8 @@ public class NodeElement {
 
     public NodeElement() {
         // 1st, clear the deck
+        this.friendlyName = null;
+        this.friendlyNameLock = new Object();
         this.nodeArchetype = null;
         this.nodeArchetypeLock = new Object();
         this.nodeMapStatus = null;
@@ -150,6 +156,8 @@ public class NodeElement {
         this.nodeMapStatus = ElementMapStatusEnum.NOT_INSTANTIATED;
         this.version = "0.0.0";
         this.instanceInPlace = false;
+        FDN nodeFDN = new FDN(elementInstanceID);
+        this.friendlyName = nodeFDN.getUnqualifiedRDN().getValue();
     }
 
     public NodeElementIdentifier getContainingElementID() {
@@ -182,7 +190,7 @@ public class NodeElement {
         }
     }
 
-    public NodeElementIdentifier getIdentifier() {
+    public NodeElementIdentifier getNodeInstanceID() {
         return nodeInstanceID;
     }
 
@@ -326,8 +334,8 @@ public class NodeElement {
     
     public NodeElementFunctionToken getNodeFunctionToken(){
         NodeElementFunctionToken token = new NodeElementFunctionToken();
-        token.setFunctionID(this.nodeInstanceID);
-        token.setVersion(this.version);
+        token.setFunctionID(this.getNodeFunctionID());
+        token.setVersion(this.getVersion());
         return(token);        
     }
 
@@ -358,7 +366,7 @@ public class NodeElement {
         return isInstanceInPlace() == that.isInstanceInPlace() &&
                 getNodeArchetype() == that.getNodeArchetype() &&
                 getNodeMapStatus() == that.getNodeMapStatus() &&
-                Objects.equals(getIdentifier(), that.getIdentifier()) &&
+                Objects.equals(getNodeInstanceID(), that.getNodeInstanceID()) &&
                 Objects.equals(getNodeFunctionID(), that.getNodeFunctionID()) &&
                 Objects.equals(getLinks(), that.getLinks()) &&
                 Objects.equals(getEndpoints(), that.getEndpoints()) &&
@@ -372,14 +380,15 @@ public class NodeElement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNodeArchetype(), getNodeMapStatus(), getIdentifier(), getNodeFunctionID(), getLinks(), getEndpoints(), getContainedElements(), getContainingElementID(), getVersion(), getResilienceMode(), getConcurrencyMode(), getElementExtensions(), isInstanceInPlace());
+        return Objects.hash(getNodeArchetype(), getNodeMapStatus(), getNodeInstanceID(), getNodeFunctionID(), getLinks(), getEndpoints(), getContainedElements(), getContainingElementID(), getVersion(), getResilienceMode(), getConcurrencyMode(), getElementExtensions(), isInstanceInPlace());
     }
     
     public String extractNodeKey() {
-    	String key = this.getIdentifier().toString() + "."+getVersion();
+    	String key =  this.getNodeInstanceID().toTag() + "." + getVersion();
     	return(key);
     }
-    
+
+
     public List<String> debugPrint(String linePrefix) {
     	ArrayList<String> stringList = new ArrayList<String>();
 		stringList.add(linePrefix + " (NodeElement).nodeArchetype (NodeElementTypeEnum) --> " + nodeArchetype);
@@ -397,5 +406,4 @@ public class NodeElement {
 		stringList.add(linePrefix + " (NodeElement).instanceInPlace (boolean) --> " + instanceInPlace);
 		return(stringList);
     }
-
 }

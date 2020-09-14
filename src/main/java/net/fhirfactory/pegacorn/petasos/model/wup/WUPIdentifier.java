@@ -22,11 +22,11 @@
 
 package net.fhirfactory.pegacorn.petasos.model.wup;
 
-import java.util.Map;
-
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.common.model.RDN;
+
+import java.util.ArrayList;
 
 /**
  * @author Mark A. Hunter
@@ -42,11 +42,11 @@ public class WUPIdentifier extends FDNToken {
 	public String toString() {
 	        FDN tempFDN = new FDN(this);
 	        String simpleString = "WUPIdentifier{";
-	        Map<Integer, RDN> rdnSet = tempFDN.getRDNSet();
+	        ArrayList<RDN> rdnSet = tempFDN.getRDNSet();
 	        int setSize = rdnSet.size();
 	        for (int counter = 0; counter < setSize; counter++) {
 	            RDN currentRDN = rdnSet.get(counter);
-	            String currentNameValue = currentRDN.getNameValue();
+	            String currentNameValue = currentRDN.getValue();
 	            if(currentNameValue.contains(".")){
 	                String outputString = currentNameValue.replace(".", "_");
 	                simpleString = simpleString + outputString;
@@ -60,5 +60,4 @@ public class WUPIdentifier extends FDNToken {
 	        simpleString = simpleString + "}";
 	        return(simpleString);
 	}
-
 }

@@ -22,11 +22,11 @@
 
 package net.fhirfactory.pegacorn.petasos.model.topology;
 
-import java.util.Map;
-
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.common.model.RDN;
+
+import java.util.ArrayList;
 
 /**
  * @author Mark A. Hunter
@@ -42,16 +42,16 @@ public class EndpointElementIdentifier extends FDNToken {
 	public String toString() {
 	        FDN tempFDN = new FDN(this);
 	        String simpleString = "EndpointElementIdentifier{";
-	        Map<Integer, RDN> rdnSet = tempFDN.getRDNSet();
+	        ArrayList<RDN> rdnSet = tempFDN.getRDNSet();
 	        int setSize = rdnSet.size();
 	        for (int counter = 0; counter < setSize; counter++) {
 	            RDN currentRDN = rdnSet.get(counter);
-	            String currentNameValue = currentRDN.getNameValue();
-	            if(currentNameValue.contains(".")){
-	                String outputString = currentNameValue.replace(".", "_");
+	            String currentValue = currentRDN.getValue();
+	            if(currentValue.contains(".")){
+	                String outputString = currentValue.replace(".", "_");
 	                simpleString = simpleString + outputString;
 	            } else {
-	                simpleString = simpleString + currentNameValue;
+	                simpleString = simpleString + currentValue;
 	            }
 	            if(counter < (setSize - 1)){
 	                simpleString = simpleString + ".";

@@ -22,8 +22,8 @@
 
 package net.fhirfactory.pegacorn.petasos.model.topology;
 
+import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
-import net.fhirfactory.pegacorn.common.model.FDNTokenSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,6 +54,8 @@ public class EndpointElement {
     private Object toStringStringLock;
     private ElementDerivationTypeEnum derivedType;
     private Object derivedTypeLock;
+    private String version;
+    private Object versionLock;
 
     public EndpointElement() {
         this.endpointFunctionID = null;
@@ -68,6 +70,7 @@ public class EndpointElement {
         this.topologyElementStatus = null;
         this.derivedType = null;
         this.exposedPort = null;
+        this.version = null;
         this.endpointTypeLock = new Object();
         this.endpointFunctionIDLock = new Object();
         this.topologyElementStatusLock = new Object();
@@ -80,6 +83,7 @@ public class EndpointElement {
         this.toStringStringLock = new Object();
         this.derivedTypeLock = new Object();
         this.exposedPortLock = new Object();
+        this.versionLock = new Object();
     }
 
     public EndpointElementTypeEnum getEndpointType() {
@@ -111,6 +115,8 @@ public class EndpointElement {
     public void setEndpointInstanceID(EndpointElementIdentifier endpointInstanceID) {
         synchronized (endpointInstanceIDLock) {
             this.endpointInstanceID = endpointInstanceID;
+            FDN endpointFDN = new FDN(endpointInstanceID);
+            this.setFriendlyName(endpointFDN.getUnqualifiedRDN().getValue());
             generateToString();
         }
     }
@@ -221,5 +227,13 @@ public class EndpointElement {
 
     public void setDerivedType(ElementDerivationTypeEnum derivedType) {
         this.derivedType = derivedType;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

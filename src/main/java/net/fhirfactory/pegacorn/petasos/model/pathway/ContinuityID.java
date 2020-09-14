@@ -23,8 +23,8 @@ package net.fhirfactory.pegacorn.petasos.model.pathway;
 
 import java.time.Instant;
 import java.util.Date;
-import net.fhirfactory.pegacorn.common.model.FDNToken;
-import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.EpisodeIdentifier;
+
+import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa.EpisodeIdentifier;
 import net.fhirfactory.pegacorn.petasos.model.resilience.parcel.ResilienceParcelIdentifier;
 import net.fhirfactory.pegacorn.petasos.model.topology.NodeElementFunctionToken;
 import net.fhirfactory.pegacorn.petasos.model.wup.WUPIdentifier;
@@ -281,7 +281,7 @@ public class ContinuityID {
         return previousEpisodeIdentifier;
     }
 
-    public void setPreviousWUAEpisodeID(EpisodeIdentifier previousWUAEpisodeID) {
+    public void setPreviousEpisodeIdentifier(EpisodeIdentifier previousWUAEpisodeID) {
         synchronized (previousEpisodeIdentifierLock) {
             this.previousEpisodeIdentifier = previousWUAEpisodeID;
         }
@@ -299,7 +299,7 @@ public class ContinuityID {
         return presentEpisodeIdentifier;
     }
 
-    public void setPresentWUAEpisodeID(EpisodeIdentifier presentWUAEpisodeID) {
+    public void setPresentEpisodeIdentifier(EpisodeIdentifier presentWUAEpisodeID) {
         synchronized (presentEpisodeIdentifierLock) {
             this.presentEpisodeIdentifier = presentWUAEpisodeID;
         }

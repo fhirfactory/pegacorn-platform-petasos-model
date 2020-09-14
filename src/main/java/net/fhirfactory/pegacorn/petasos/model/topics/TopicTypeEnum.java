@@ -24,12 +24,12 @@ package net.fhirfactory.pegacorn.petasos.model.topics;
 import net.fhirfactory.pegacorn.petasos.model.topology.*;
 
 public enum TopicTypeEnum {
-    DATASET_DEFINER("dataset_definer"),
-    DATASET_CATEGORY("dataset_category"),
-    DATASET_SUBCATEGORY("dataset_subcategory"),
-    DATASET_RESOURCE("dataset_resource"),
-    DATASET_QUALIFIER_TYPE("dataset_qualifier_type"),
-    DATASET_QUALIFIER_VALUE("dataset_qualifier_value");
+    DATASET_DEFINER("owner"),
+    DATASET_CATEGORY("category"),
+    DATASET_SUBCATEGORY("subcategory"),
+    DATASET_RESOURCE("resource"),
+    DATASET_QUALIFIER_TYPE("qualifier_type"),
+    DATASET_QUALIFIER_VALUE("qualifier_value");
    
     private String topicType;
 

@@ -27,7 +27,7 @@ import java.util.*;
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.petasos.model.pathway.ContinuityID;
-import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.EpisodeIdentifier;
+import net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa.EpisodeIdentifier;
 import net.fhirfactory.pegacorn.petasos.model.uow.UoW;
 
 import net.fhirfactory.pegacorn.petasos.model.wup.WUPIdentifier;
@@ -149,7 +149,7 @@ public class ResilienceParcel {
         if (originalParcel.hasCancellationDate()) {
             this.cancellationDate = originalParcel.getCancellationDate();
         }
-        if (originalParcel.hasAssociatedWUPInstanceID()) {
+        if (originalParcel.hasAssociatedWUPIdentifier()) {
             this.associatedWUPIdentifier = originalParcel.getAssociatedWUPIdentifier();
         }
         if (originalParcel.hasActualUoW()) {
@@ -161,7 +161,7 @@ public class ResilienceParcel {
         if (originalParcel.hasFinishedDate()) {
             this.finishedDate = originalParcel.getFinishedDate();
         }
-        if (originalParcel.hasInstanceID()) {
+        if (originalParcel.hasInstanceIdentifier()) {
             this.identifier = originalParcel.getIdentifier();
         }
         if (originalParcel.hasRegistrationDate()) {
@@ -173,7 +173,7 @@ public class ResilienceParcel {
         if (originalParcel.hasTypeID()) {
             this.typeID = originalParcel.getTypeID();
         }
-        if (originalParcel.hasUpstreamEpisodeID()) {
+        if (originalParcel.hasUpstreamEpisodeIdentifier()) {
             this.upstreamEpisodeIdentifier = originalParcel.getUpstreamEpisodeIdentifier();
         }
         if (originalParcel.hasDownstreamEpisodeIdentifierSet()) {
@@ -266,8 +266,8 @@ public class ResilienceParcel {
         }
     }
 
-    // Helper methods for the this.precursorParcelID attribute
-    public boolean hasUpstreamEpisodeID() {
+    // Helper methods for the this.upstreamEpisodeID attribute
+    public boolean hasUpstreamEpisodeIdentifier() {
         if (this.upstreamEpisodeIdentifier == null) {
             return (false);
         }
@@ -293,7 +293,7 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.parcelInstanceID attribute
-    public boolean hasInstanceID() {
+    public boolean hasInstanceIdentifier() {
         if (this.identifier == null) {
             return (false);
         }
@@ -320,6 +320,12 @@ public class ResilienceParcel {
 
     public FDNToken getTypeID() {
         return this.typeID;
+    }
+
+    public void setTypeID(FDNToken typeID) {
+        synchronized (typeIDLock) {
+            this.typeID = typeID;
+        }
     }
 
     public void setParcelTypeFDN(FDNToken parcelType) {
@@ -401,7 +407,7 @@ public class ResilienceParcel {
     }
 
     // Helper methods for the this.associatedWUPInstanceID attribute
-    public boolean hasAssociatedWUPInstanceID() {
+    public boolean hasAssociatedWUPIdentifier() {
         if (this.associatedWUPIdentifier == null) {
             return (false);
         }
@@ -415,12 +421,6 @@ public class ResilienceParcel {
     public void setAssociatedWUPIdentifier(WUPIdentifier associatedWUPIdentifier) {
         synchronized (associatedWUPIdentifierLock) {
             this.associatedWUPIdentifier = associatedWUPIdentifier;
-        }
-    }
-
-    public void setTypeID(FDNToken typeID) {
-        synchronized (typeIDLock) {
-            this.typeID = typeID;
         }
     }
 
@@ -465,7 +465,7 @@ public class ResilienceParcel {
     public String toString() {
         String newString = new String("ResilienceParcel={");
         String parcelInstanceIDString;
-        if (hasInstanceID()) {
+        if (hasInstanceIdentifier()) {
             parcelInstanceIDString = "(instanceID:" + identifier.toString() + ")";
         } else {
             parcelInstanceIDString = "(instanceID:null)";
@@ -477,13 +477,13 @@ public class ResilienceParcel {
             parcelTypeIDString = "(typeID:null)";
         }
         String associatedWUPInstanceIDString;
-        if (hasAssociatedWUPInstanceID()) {
+        if (hasAssociatedWUPIdentifier()) {
             associatedWUPInstanceIDString = "(associatedWUPInstanceID=" + associatedWUPIdentifier.toString() + ")";
         } else {
             associatedWUPInstanceIDString = "(associatedWUPInstanceID=null)";
         }
         String upstreamParcelIDString;
-        if (hasUpstreamEpisodeID()) {
+        if (hasUpstreamEpisodeIdentifier()) {
             upstreamParcelIDString = "(upstreamEpisodeID:" + upstreamEpisodeIdentifier.toString() + ")";
         } else {
             upstreamParcelIDString = "(upstreamEpisodeID:null)";
