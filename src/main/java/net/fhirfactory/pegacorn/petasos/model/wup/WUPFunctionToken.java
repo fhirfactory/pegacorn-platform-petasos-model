@@ -22,29 +22,32 @@
 package net.fhirfactory.pegacorn.petasos.model.wup;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
+import net.fhirfactory.pegacorn.petasos.model.topology.NodeElementFunctionToken;
 
 /**
  *
  * @author Mark A. Hunter
  */
-public class WUPFunctionToken {
-    private FDNToken functionID;
-    private String version;
+public class WUPFunctionToken extends NodeElementFunctionToken {
 
-    public FDNToken getFunctionID() {
-        return functionID;
+    public WUPFunctionToken(WUPFunctionToken originalToken){
+        super(originalToken);
     }
 
-    public void setFunctionID(FDNToken functionID) {
-        this.functionID = functionID;
+    public WUPFunctionToken(NodeElementFunctionToken originalNodeToken){
+        super(originalNodeToken);
     }
 
-    public String getVersion() {
-        return version;
+    public WUPFunctionToken(){
+        super();
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    @Override
+    public String toString() {
+        String toString = "{WUPFunctionToken=("
+                + this.getFunctionID().toString() + "),("
+                + this.getVersion() + ")}";
+        return (toString);
     }
     
 }

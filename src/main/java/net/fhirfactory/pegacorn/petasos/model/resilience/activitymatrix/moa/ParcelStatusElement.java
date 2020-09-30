@@ -23,7 +23,7 @@
 package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
-import net.fhirfactory.pegacorn.petasos.model.pathway.ContinuityID;
+import net.fhirfactory.pegacorn.petasos.model.pathway.ActivityID;
 import net.fhirfactory.pegacorn.petasos.model.resilience.parcel.ResilienceParcelProcessingStatusEnum;
 
 import java.time.Instant;
@@ -32,7 +32,7 @@ import net.fhirfactory.pegacorn.petasos.model.topology.NodeElementFunctionToken;
 
 public class ParcelStatusElement {
 
-    private ContinuityID activityID;
+    private ActivityID activityID;
     private Object activityIDLock;
     private ResilienceParcelProcessingStatusEnum parcelStatus;
     private Object parcelStatusLock;
@@ -47,8 +47,8 @@ public class ParcelStatusElement {
     private boolean requiresRetry;
     private Object requiresRetryLock;
 
-    public ParcelStatusElement(ContinuityID newID) {
-        this.activityID = new ContinuityID(newID);
+    public ParcelStatusElement(ActivityID newID) {
+        this.activityID = new ActivityID(newID);
         this.entryDate = Date.from(Instant.now());
         this.hasClusterFocus = false;
         this.hasSystemWideFocus = false;
@@ -75,11 +75,11 @@ public class ParcelStatusElement {
         return (this.activityID.getPresentWUPFunctionToken());
     }
 
-    public ContinuityID getActivityID() {
+    public ActivityID getActivityID() {
         return activityID;
     }
 
-    public void setActivityID(ContinuityID activityID) {
+    public void setActivityID(ActivityID activityID) {
         synchronized (activityIDLock) {
             this.activityID = activityID;
         }

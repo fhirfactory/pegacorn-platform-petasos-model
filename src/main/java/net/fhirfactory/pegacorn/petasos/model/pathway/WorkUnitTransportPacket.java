@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 public class WorkUnitTransportPacket {
     private static final Logger LOG = LoggerFactory.getLogger(WorkUnitTransportPacket.class);
 
-    private ContinuityID packetID;
+    private ActivityID packetID;
     private Object packetIDLock;
     private Date senderSendDate;
     private Object senderSendDateLock;
@@ -50,7 +50,7 @@ public class WorkUnitTransportPacket {
     private String generatedString;
     private Object generatedStringLock;
     
-    public WorkUnitTransportPacket(ContinuityID newPacketID, Date senderSendDate, UoW payload) {
+    public WorkUnitTransportPacket(ActivityID newPacketID, Date senderSendDate, UoW payload) {
         this.senderSendDate = senderSendDate;
         this.payload = payload;
         this.packetID = newPacketID;
@@ -190,11 +190,11 @@ public class WorkUnitTransportPacket {
         }
     }
 
-    public ContinuityID getPacketID(){
+    public ActivityID getPacketID(){
         return(this.packetID);
     }
 
-    public void setPacketID(ContinuityID newPacketID){
+    public void setPacketID(ActivityID newPacketID){
         synchronized(packetIDLock){
             this.packetID = newPacketID;
             this.generateString();

@@ -21,7 +21,9 @@
  */
 package net.fhirfactory.pegacorn.petasos.model.topics;
 
+import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
+import net.fhirfactory.pegacorn.common.model.RDN;
 
 import java.util.Objects;
 
@@ -44,6 +46,11 @@ public class TopicToken {
         this.version = null;
     }
 
+    public TopicToken(TopicToken originalToken){
+        this.identifier = originalToken.getIdentifier();
+        this.version = originalToken.getVersion();
+    }
+
     public FDNToken getIdentifier() {
         return identifier;
     }
@@ -58,6 +65,13 @@ public class TopicToken {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public void addDescriminator(String descriminatorType, String descriminatorValue){
+        FDN existingIdentifierFDN = new FDN(this.identifier);
+        existingIdentifierFDN.appendRDN(new RDN(TopicTypeEnum.DATASET_QUALIFIER_TYPE.getTopicType(), descriminatorType));
+        existingIdentifierFDN.appendRDN(new RDN(TopicTypeEnum.DATASET_QUALIFIER_VALUE.getTopicType(), descriminatorValue));
+        this.identifier = existingIdentifierFDN.getToken();
     }
 
     @Override

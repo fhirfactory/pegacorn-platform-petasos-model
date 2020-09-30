@@ -23,6 +23,7 @@
 package net.fhirfactory.pegacorn.petasos.model.resilience.activitymatrix.moa;
 
 import net.fhirfactory.pegacorn.common.model.FDNToken;
+import net.fhirfactory.pegacorn.petasos.model.wup.WUPFunctionToken;
 
 /**
  * 
@@ -30,13 +31,13 @@ import net.fhirfactory.pegacorn.common.model.FDNToken;
  *
  */
 public class WUAEpisodeFinalisationRegistrationStatus {
-    private FDNToken actualDownstreamEpisodeID;
-    private FDNToken downstreamRegisteredWUPID;
+    private EpisodeIdentifier actualDownstreamEpisodeID;
+    private WUPFunctionToken downstreamRegisteredWUPID;
     private Object registrationStatusLock;
     private WUAEpisodeFinalisationRegistrationStatusEnum registrationStatus;
 
 
-    public WUAEpisodeFinalisationRegistrationStatus(FDNToken downstreamWUPID){
+    public WUAEpisodeFinalisationRegistrationStatus(WUPFunctionToken downstreamWUPID){
         this.downstreamRegisteredWUPID = downstreamWUPID;
         this.actualDownstreamEpisodeID = null;
         this.registrationStatusLock = new Object();
@@ -51,14 +52,14 @@ public class WUAEpisodeFinalisationRegistrationStatus {
         return(this.actualDownstreamEpisodeID);
     }
 
-    public void setActualDownstreamEpisodeID(FDNToken downstreamEpisodeID){
+    public void setActualDownstreamEpisodeID(EpisodeIdentifier downstreamEpisodeID){
         synchronized (registrationStatusLock){
             this.actualDownstreamEpisodeID = downstreamEpisodeID;
             this.registrationStatus = WUAEpisodeFinalisationRegistrationStatusEnum.DOWNSTREAM_EPISODE_ID_REGISTERED;
         }
     }
 
-    public FDNToken getDownstreamRegisteredWUPID(){
+    public WUPFunctionToken getDownstreamRegisteredWUPID(){
         return(this.downstreamRegisteredWUPID);
     }
 }

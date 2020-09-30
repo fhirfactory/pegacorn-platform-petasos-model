@@ -33,7 +33,7 @@ import net.fhirfactory.pegacorn.petasos.model.wup.WUPIdentifier;
  *
  * @author Mark A. Hunter
  */
-public class ContinuityID {
+public class ActivityID {
 
     private ResilienceParcelIdentifier previousParcelIdenifier;
     private Object previousParcelIdentifierLock;
@@ -54,7 +54,7 @@ public class ContinuityID {
     private Date creationDate;
     private Object creationDateLock;
 
-    public ContinuityID(ResilienceParcelIdentifier previousParcelInstanceID, ResilienceParcelIdentifier presentParcelInstanceID, WUPIdentifier previousWUPInstanceID, WUPIdentifier presentWUPInstanceID, Date creationDate) {
+    public ActivityID(ResilienceParcelIdentifier previousParcelInstanceID, ResilienceParcelIdentifier presentParcelInstanceID, WUPIdentifier previousWUPInstanceID, WUPIdentifier presentWUPInstanceID, Date creationDate) {
         // Clear the deck
         this.previousParcelIdenifier = null;
         this.previousEpisodeIdentifier = null;
@@ -82,7 +82,7 @@ public class ContinuityID {
         this.creationDate = creationDate;
     }
 
-    public ContinuityID(ResilienceParcelIdentifier previousParcelInstanceID, ResilienceParcelIdentifier presentParcelInstanceID, WUPIdentifier previousWUPInstanceID, WUPIdentifier presentWUPInstanceID) {
+    public ActivityID(ResilienceParcelIdentifier previousParcelInstanceID, ResilienceParcelIdentifier presentParcelInstanceID, WUPIdentifier previousWUPInstanceID, WUPIdentifier presentWUPInstanceID) {
         this.previousParcelIdenifier = null;
         this.previousEpisodeIdentifier = null;
         this.presentParcelIdentifier = null;
@@ -109,7 +109,7 @@ public class ContinuityID {
         this.creationDate = Date.from(Instant.now());
     }
 
-    public ContinuityID() {
+    public ActivityID() {
         this.previousParcelIdenifier = null;
         this.previousEpisodeIdentifier = null;
         this.presentParcelIdentifier = null;
@@ -130,7 +130,7 @@ public class ContinuityID {
         this.previousWUPIdentifierLock = new Object();
     }
 
-    public ContinuityID(ContinuityID originalRecord) {
+    public ActivityID(ActivityID originalRecord) {
         this.previousParcelIdenifier = null;
         this.previousEpisodeIdentifier = null;
         this.presentParcelIdentifier = null;
@@ -397,7 +397,7 @@ public class ContinuityID {
         } else {
             creationDateString = "(creationDate:null)";
         }
-        String theString = "ContinuityID{"
+        String theString = "ActivityID{"
                 + previousResilienceParcelInstanceIDString + ","
                 + presentResilienceParcelInstanceIDString + ","
                 + previousWUAEpisodeString + ","

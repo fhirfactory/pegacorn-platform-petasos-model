@@ -23,7 +23,7 @@ package net.fhirfactory.pegacorn.petasos.model.wup;
 
 import java.util.Date;
 
-import net.fhirfactory.pegacorn.petasos.model.pathway.ContinuityID;
+import net.fhirfactory.pegacorn.petasos.model.pathway.ActivityID;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum;
 import org.slf4j.Logger;
@@ -32,8 +32,8 @@ import org.slf4j.LoggerFactory;
 public class WUPJobCard {
     private static final Logger LOG = LoggerFactory.getLogger(WUPJobCard.class);
 
-    private ContinuityID cardID;
-    private Object cardIDLock;
+    private ActivityID activityID;
+    private Object activityIDLock;
     private Date updateDate;
     private Object updateDateLock;
     private WUPActivityStatusEnum currentStatus;
@@ -53,14 +53,14 @@ public class WUPJobCard {
     private String toStringValue;
 
     public WUPJobCard(
-            ContinuityID activityID, 
+            ActivityID activityID,
             WUPActivityStatusEnum currentStatus, 
             WUPActivityStatusEnum requestedStatus, 
             ConcurrencyModeEnum clusterMode, 
             ResilienceModeEnum systemMode, 
             Date updateDate) {
         LOG.debug(".WUPJobCard(): activityID, currentStatus, requestedStatus, clusterMode, systemMode, updateDate");
-        this.cardID = null;
+        this.activityID = null;
         this.updateDate = null;
         this.currentStatus = null;
         this.requestedStatus = null;
@@ -68,7 +68,7 @@ public class WUPJobCard {
         this.systemMode = null;
         this.toStringValue = null;
         this.grantedStatus = null;
-        this.cardIDLock = new Object();
+        this.activityIDLock = new Object();
         this.updateDateLock = new Object();
         this.currentStatusLock =  new Object();
         this.requestedStatusLock = new Object();
@@ -83,7 +83,7 @@ public class WUPJobCard {
         this.updateDate = updateDate;
         this.currentStatus = currentStatus;
         this.clusterMode = clusterMode;
-        this.cardID = new ContinuityID(activityID);
+        this.activityID = new ActivityID(activityID);
         this.requestedStatus = requestedStatus;
         this.systemMode = systemMode;
         this.isToBeDiscarded = false;
@@ -91,7 +91,7 @@ public class WUPJobCard {
     }
 
     public WUPJobCard(WUPJobCard originalCard) {
-        this.cardID = null;
+        this.activityID = null;
         this.updateDate = null;
         this.currentStatus = null;
         this.requestedStatus = null;
@@ -99,7 +99,7 @@ public class WUPJobCard {
         this.systemMode = null;
         this.toStringValue = null;
         this.grantedStatus = null;
-        this.cardIDLock = new Object();
+        this.activityIDLock = new Object();
         this.updateDateLock = new Object();
         this.currentStatusLock =  new Object();
         this.requestedStatusLock = new Object();
@@ -110,7 +110,7 @@ public class WUPJobCard {
         if (originalCard == null) {
             throw (new IllegalArgumentException("originalCard (WUPJobCard) is null in Copy Constructor"));
         }
-        this.cardID = new ContinuityID(originalCard.getCardID());
+        this.activityID = new ActivityID(originalCard.getActivityID());
         this.updateDate = originalCard.getUpdateDate();
         this.currentStatus = originalCard.getCurrentStatus();
         this.clusterMode = originalCard.getClusterMode();
@@ -152,20 +152,20 @@ public class WUPJobCard {
 
     // Helper/accessor methods for the cardID attribute
 
-    public boolean hasCardID() {
-        if (this.cardID == null) {
+    public boolean hasActivityID() {
+        if (this.activityID == null) {
             return (false);
         }
         return (true);
     }
 
-    public ContinuityID getCardID() {
-        return (this.cardID);
+    public ActivityID getActivityID() {
+        return (this.activityID);
     }
 
-    public void setCardID(ContinuityID newCardID) {
-        synchronized (cardIDLock) {
-            this.cardID = newCardID;
+    public void setActivityID(ActivityID newCardID) {
+        synchronized (activityIDLock) {
+            this.activityID = newCardID;
             generateToString();
         }
     }
@@ -234,8 +234,8 @@ public class WUPJobCard {
 
     public void generateToString() {
         String cardIDString;
-        if (hasCardID()) {
-            cardIDString = "(cardID:" + this.getCardID().toString() + ")";
+        if (hasActivityID()) {
+            cardIDString = "(cardID:" + this.getActivityID().toString() + ")";
         } else {
             cardIDString = "(cardID:null)";
         }
