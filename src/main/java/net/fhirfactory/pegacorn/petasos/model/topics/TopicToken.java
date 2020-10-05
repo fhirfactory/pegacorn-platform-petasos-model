@@ -74,6 +74,27 @@ public class TopicToken {
         this.identifier = existingIdentifierFDN.getToken();
     }
 
+    /**
+     * This function removes the Descriminator from a TopicToken Identifier.
+     */
+    public void removeDescriminator(){
+        FDN existingIdentifierFDN = new FDN(this.identifier);
+        boolean hasDataSetQualifierValue =  existingIdentifierFDN.getUnqualifiedRDN().getQualifier().contentEquals(TopicTypeEnum.DATASET_QUALIFIER_VALUE.getTopicType());
+        boolean hasDataSetQualifierType = existingIdentifierFDN.getParentFDN().getUnqualifiedRDN().getQualifier().contentEquals(TopicTypeEnum.DATASET_QUALIFIER_TYPE.getTopicType());
+        if(!hasDataSetQualifierValue || !hasDataSetQualifierType){
+            return;
+        }
+        if(existingIdentifierFDN.getRDNCount() == 5){
+            FDN newFDN = existingIdentifierFDN.getParentFDN();
+            this.setIdentifier(newFDN.getToken());
+        }
+        if(existingIdentifierFDN.getRDNCount() == 6){
+            FDN newFDN1 = existingIdentifierFDN.getParentFDN();
+            FDN newFDN2 = newFDN1.getParentFDN();
+            this.setIdentifier(newFDN2.getToken());
+        }
+    }
+
     @Override
     public String toString() {
         return "TopicToken{(identifier=" + identifier + "),(version=" + version + ")}";

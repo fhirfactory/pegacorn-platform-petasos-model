@@ -37,6 +37,7 @@ public class NodeElementIdentifier extends FDNToken {
     public NodeElementIdentifier(FDNToken originalToken) {
         this.setContent(new String(originalToken.getContent()));
     }
+    public NodeElementIdentifier(){super();}
 
     @Override
     public String toString() {

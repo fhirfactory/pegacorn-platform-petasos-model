@@ -21,6 +21,7 @@
  */
 package net.fhirfactory.pegacorn.petasos.model.topology;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.RDN;
 
@@ -72,6 +73,7 @@ public class NodeElementFunctionToken {
         return (toString);
     }
 
+    @JsonIgnore
     public net.fhirfactory.pegacorn.common.model.FDNToken getAsSingleFDNToken() {
         FDN functionFDN = new FDN(this.functionID);
         functionFDN.appendRDN(new RDN("Version", this.version));

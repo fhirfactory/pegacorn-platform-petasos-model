@@ -36,7 +36,11 @@ public class EpisodeIdentifier extends FDNToken {
 	
     public EpisodeIdentifier(FDNToken originalToken) {
         this.setContent(new String(originalToken.getContent()));
-    }	
+    }
+
+    public EpisodeIdentifier(){
+    	super();
+	}
 	
 	@Override
 	public String toString() {

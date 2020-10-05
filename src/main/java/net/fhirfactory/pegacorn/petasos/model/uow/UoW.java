@@ -21,6 +21,7 @@
  */
 package net.fhirfactory.pegacorn.petasos.model.uow;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -73,6 +74,16 @@ public class UoW {
     //
     // Constructors
     //
+
+    public UoW(){
+        this.ingresContent = null;
+        this.egressContent = new UoWPayloadSet();
+        this.processingOutcome = null;
+        this.typeID = null;
+        this.failureDescription = null;
+        this.instanceID = null;
+    }
+
     public UoW(UoWPayload inputPayload) {
         LOG.debug(".UoW(): Constructor: inputPayload -->{}", inputPayload);
         this.ingresContent = new UoWPayload(inputPayload);
@@ -294,6 +305,7 @@ public class UoW {
         }
     }
 
+    @JsonIgnore
     public TopicToken getPayloadTopicID() {
         if (hasPayloadTopicID()) {
             return (this.getIngresContent().getPayloadTopicID());
@@ -334,5 +346,9 @@ public class UoW {
 
     public void setFailureDescription(String failureDescription) {
         this.failureDescription = failureDescription;
+    }
+
+    public void setTypeID(FDNToken typeID) {
+        this.typeID = typeID;
     }
 }

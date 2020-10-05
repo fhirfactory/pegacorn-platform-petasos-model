@@ -37,6 +37,7 @@ public class WUPIdentifier extends FDNToken {
     public WUPIdentifier(FDNToken originalToken) {
         this.setContent(new String(originalToken.getContent()));
     }
+    public WUPIdentifier(){super();}
 	
 	@Override
 	public String toString() {

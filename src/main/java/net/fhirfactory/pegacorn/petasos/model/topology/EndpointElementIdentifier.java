@@ -37,6 +37,9 @@ public class EndpointElementIdentifier extends FDNToken {
     public EndpointElementIdentifier(FDNToken originalToken) {
         this.setContent(new String(originalToken.getContent()));
     }
+    public EndpointElementIdentifier(){
+    	super();
+	}
 	
 	@Override
 	public String toString() {

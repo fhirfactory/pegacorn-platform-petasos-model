@@ -32,7 +32,11 @@ public class ResilienceParcelIdentifier extends FDNToken {
 	
     public ResilienceParcelIdentifier(FDNToken originalToken) {
         this.setContent(new String(originalToken.getContent()));
-    }	
+    }
+
+    public ResilienceParcelIdentifier(){
+    	super();
+	}
     
 
 	@Override
