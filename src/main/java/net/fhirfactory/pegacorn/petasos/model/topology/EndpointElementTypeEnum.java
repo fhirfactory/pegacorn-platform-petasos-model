@@ -24,7 +24,8 @@ package net.fhirfactory.pegacorn.petasos.model.topology;
 public enum EndpointElementTypeEnum {
     INGRES_MESSAGING("endpoint.ingres_messaging"),
     EGRESS_MESSAGING("endpoint.egress_messaging"),
-    API("endpoint.api"),
+    API_SERVER("endpoint.api_server"),
+    API_CLIENT("endpoint.api_client"),
     OTHER("endpoint.other");
 
     private String endpointType;

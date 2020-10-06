@@ -34,6 +34,7 @@ public enum WUPArchetypeEnum {
     WUP_NATURE_MESSAGE_EXTERNAL_INGRES_POINT("pegacorn.petasos.wup.nature.message.ingres_point"),
     WUP_NATURE_MESSAGE_EXTERNAL_EGRESS_POINT("pegacorn.petasos.wup.nature.message.egress_point"),
     WUP_NATURE_MESSAGE_EXTERNAL_CONCURRENT_INGRES_POINT("pegacorn.petasos.wup.nature.message.concurrent_ingres_point"),
+    WUP_NATURE_API_CLIENT("pegacorn.petasos.wup.nature.api.client"),
     WUP_NATURE_API_ANSWER("pegacorn.petasos.wup.nature.api.answer"),
     WUP_NATURE_API_RECEIVE("pegacorn.petasos.wup.nature.api.receive"),
     WUP_NATURE_API_PUSH("pegacorn.petasos.wup.nature.api.receive");

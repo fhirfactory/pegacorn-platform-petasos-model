@@ -28,8 +28,8 @@ public enum TopicTypeEnum {
     DATASET_CATEGORY("category"),
     DATASET_SUBCATEGORY("subcategory"),
     DATASET_RESOURCE("resource"),
-    DATASET_QUALIFIER_TYPE("qualifier_type"),
-    DATASET_QUALIFIER_VALUE("qualifier_value");
+    DATASET_DISCRIMINATOR_TYPE("discriminator_type"),
+    DATASET_DISCRIMINATOR_VALUE("discriminator_value");
    
     private String topicType;
 

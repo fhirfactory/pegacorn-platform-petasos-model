@@ -198,12 +198,12 @@ public class Topic {
                         case 4:
                             this.datasetType = TopicTypeEnum.DATASET_RESOURCE;
                             break;
-                        case 6:
-                            this.datasetType = TopicTypeEnum.DATASET_QUALIFIER_TYPE;
-                            break;
                         case 5:
+                            this.datasetType = TopicTypeEnum.DATASET_DISCRIMINATOR_TYPE;
+                            break;
+                        case 6:
                         default:
-                            this.datasetType = TopicTypeEnum.DATASET_QUALIFIER_VALUE;
+                            this.datasetType = TopicTypeEnum.DATASET_DISCRIMINATOR_VALUE;
                     }
                 } else {
                     this.datasetType = TopicTypeEnum.DATASET_RESOURCE;

@@ -25,6 +25,7 @@ import net.fhirfactory.pegacorn.common.model.FDN;
 import net.fhirfactory.pegacorn.common.model.FDNToken;
 import net.fhirfactory.pegacorn.common.model.RDN;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -69,8 +70,8 @@ public class TopicToken {
 
     public void addDescriminator(String descriminatorType, String descriminatorValue){
         FDN existingIdentifierFDN = new FDN(this.identifier);
-        existingIdentifierFDN.appendRDN(new RDN(TopicTypeEnum.DATASET_QUALIFIER_TYPE.getTopicType(), descriminatorType));
-        existingIdentifierFDN.appendRDN(new RDN(TopicTypeEnum.DATASET_QUALIFIER_VALUE.getTopicType(), descriminatorValue));
+        existingIdentifierFDN.appendRDN(new RDN(TopicTypeEnum.DATASET_DISCRIMINATOR_TYPE.getTopicType(), descriminatorType));
+        existingIdentifierFDN.appendRDN(new RDN(TopicTypeEnum.DATASET_DISCRIMINATOR_VALUE.getTopicType(), descriminatorValue));
         this.identifier = existingIdentifierFDN.getToken();
     }
 
@@ -79,8 +80,26 @@ public class TopicToken {
      */
     public void removeDescriminator(){
         FDN existingIdentifierFDN = new FDN(this.identifier);
-        boolean hasDataSetQualifierValue =  existingIdentifierFDN.getUnqualifiedRDN().getQualifier().contentEquals(TopicTypeEnum.DATASET_QUALIFIER_VALUE.getTopicType());
-        boolean hasDataSetQualifierType = existingIdentifierFDN.getParentFDN().getUnqualifiedRDN().getQualifier().contentEquals(TopicTypeEnum.DATASET_QUALIFIER_TYPE.getTopicType());
+        ArrayList<RDN> rdnSet = existingIdentifierFDN.getRDNSet();
+        FDN newFDN = new FDN();
+        int counter = 0;
+        for(RDN rdn: rdnSet){
+            boolean hasDataSetQualifierValue = rdn.getQualifier().contentEquals(TopicTypeEnum.DATASET_DISCRIMINATOR_VALUE.getTopicType());
+            boolean hasDataSetQualifierType = rdn.getQualifier().contentEquals(TopicTypeEnum.DATASET_DISCRIMINATOR_TYPE.getTopicType());
+            if(!(hasDataSetQualifierValue || hasDataSetQualifierType)){
+                if(counter < 4) {
+                    newFDN.appendRDN(rdn);
+                    counter += 1;
+                }
+                if(counter >= 4){
+                    break;
+                }
+            }
+        }
+        this.identifier = newFDN.getToken();
+        /*
+        boolean hasDataSetQualifierValue =  existingIdentifierFDN.getUnqualifiedRDN().getQualifier().contentEquals(TopicTypeEnum.DATASET_DISCRIMINATOR_VALUE.getTopicType());
+        boolean hasDataSetQualifierType = existingIdentifierFDN.getParentFDN().getUnqualifiedRDN().getQualifier().contentEquals(TopicTypeEnum.DATASET_DISCRIMINATOR_TYPE.getTopicType());
         if(!hasDataSetQualifierValue || !hasDataSetQualifierType){
             return;
         }
@@ -93,11 +112,12 @@ public class TopicToken {
             FDN newFDN2 = newFDN1.getParentFDN();
             this.setIdentifier(newFDN2.getToken());
         }
+        */
     }
 
     @Override
     public String toString() {
-        return "TopicToken{(identifier=" + identifier + "),(version=" + version + ")}";
+        return "TopicToken{(identifier=" + identifier.toTag() + "),(version=" + version + ")}";
     }
 
     @Override
