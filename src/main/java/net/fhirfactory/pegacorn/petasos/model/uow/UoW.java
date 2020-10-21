@@ -146,10 +146,6 @@ public class UoW {
     public UoWIdentifier getInstanceID() {
         return instanceID;
     }
-
-    public void setInstanceID(FDNToken uowID) {
-        this.instanceID = new UoWIdentifier(uowID);
-    }
     
     public void setInstanceID(UoWIdentifier uowID) {
     	this.instanceID = uowID;
