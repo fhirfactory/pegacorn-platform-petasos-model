@@ -51,7 +51,7 @@ public class UoW {
     /**
      * The FDN (fully distinguished name) of this UoW instance.
      */
-    private FDNToken instanceID;
+    private UoWIdentifier instanceID;
     /**
      * The set of (JSON) objects that represent the ingress (or starting set) of
      * information of this UoW.
@@ -100,7 +100,7 @@ public class UoW {
 
     public UoW(UoW originalUoW) {
         this.failureDescription = null;
-        this.instanceID = new FDNToken(originalUoW.getInstanceID());
+        this.instanceID = new UoWIdentifier(originalUoW.getInstanceID());
         this.ingresContent = new UoWPayload(originalUoW.getIngresContent());
         this.egressContent = new UoWPayloadSet();
         this.egressContent.getPayloadElements().addAll(originalUoW.getEgressContent().getPayloadElements());
@@ -116,7 +116,7 @@ public class UoW {
             FDN instanceFDN = new FDN(this.typeID);
             RDN newRDN = new RDN(HASH_ATTRIBUTE, generatedInstanceValue);
             instanceFDN.appendRDN(newRDN);
-            this.instanceID = instanceFDN.getToken();
+            this.instanceID = new UoWIdentifier(instanceFDN.getToken());
         } else {
             LOG.trace(".generateInstanceID(): has content, so creating has key");
             /*
@@ -126,7 +126,7 @@ public class UoW {
             RDN newRDN = new RDN(HASH_ATTRIBUTE, payload);
             FDN instanceFDN = new FDN(this.typeID);
             instanceFDN.appendRDN(newRDN);
-            this.instanceID = instanceFDN.getToken();
+            this.instanceID = new UoWIdentifier(instanceFDN.getToken());
         }
     }
 
@@ -143,12 +143,16 @@ public class UoW {
      * @return FDN - the UoW Instance FDN (which will be unique for each UoW
      * within the system).
      */
-    public FDNToken getInstanceID() {
+    public UoWIdentifier getInstanceID() {
         return instanceID;
     }
 
     public void setInstanceID(FDNToken uowID) {
-        this.instanceID = uowID;
+        this.instanceID = new UoWIdentifier(uowID);
+    }
+    
+    public void setInstanceID(UoWIdentifier uowID) {
+    	this.instanceID = uowID;
     }
 
     // typeID Helper/Bean methods

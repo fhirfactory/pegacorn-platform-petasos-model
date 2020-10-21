@@ -160,6 +160,14 @@ public class NodeElement {
         this.friendlyName = nodeFDN.getUnqualifiedRDN().getValue();
     }
 
+    public String getFriendlyName() {
+        return friendlyName;
+    }
+
+    public void setFriendlyName(String friendlyName) {
+        this.friendlyName = friendlyName;
+    }
+
     public NodeElementIdentifier getContainingElementID() {
         return containingElementID;
     }
