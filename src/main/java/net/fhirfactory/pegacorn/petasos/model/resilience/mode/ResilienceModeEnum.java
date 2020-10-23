@@ -24,8 +24,11 @@ package net.fhirfactory.pegacorn.petasos.model.resilience.mode;
 
 public enum ResilienceModeEnum {
     RESILIENCE_MODE_STANDALONE("pegacorn.platform.petasos.resilience_mode.standalone"),
+    RESILIENCE_MODE_KUBERNETES_STANDALONE("pegacorn.platform.petasos.resilience_mode.kubernetes_standalone"),
     RESILIENCE_MODE_CLUSTERED("pegacorn.platform.petasos.resilience_mode.clustered"),
-    RESILIENCE_MODE_MULTISITE("pegacorn.platform.petasos.resileince_mode.multisite");
+    RESILIENCE_MODE_KUBERNETES_CLUSTERED("pegacorn.platform.petasos.resilience_mode.kubernetes_clustered"),
+    RESILIENCE_MODE_MULTISITE("pegacorn.platform.petasos.resileince_mode.multisite"),
+    RESILIENCE_MODE_KUBERNETES_MULTISITE("pegacorn.platform.petasos.resilience_mode.kubernetes_multisite"),;
 
     private String petasosNodeMode;
 
