@@ -23,10 +23,15 @@ package net.fhirfactory.pegacorn.petasos.model.keys;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ResourceKey {
+    private static final Logger LOG = LoggerFactory.getLogger(ResourceKey.class);
+    
     IdType idTypeKey;
     Identifier identifierTypeKey;
 
@@ -63,7 +68,7 @@ public class ResourceKey {
                 String keyAsString = mapper.writeValueAsString(getIdentifierTypeKey());
                 return(keyAsString);
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                LOG.error("Ignoring exception " + e.getMessage() + " and returning Empty Identifier", e);
                 return("Empty Identifier");
             }
         } else {
