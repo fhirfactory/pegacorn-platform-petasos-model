@@ -56,6 +56,8 @@ public class EndpointElement {
     private Object derivedTypeLock;
     private String version;
     private Object versionLock;
+    private boolean utilisingSecurity;
+    private Object utilisingSecurityLock;
 
     public EndpointElement() {
         this.endpointFunctionID = null;
@@ -71,6 +73,7 @@ public class EndpointElement {
         this.derivedType = null;
         this.exposedPort = null;
         this.version = null;
+        this.utilisingSecurity = false;
         this.endpointTypeLock = new Object();
         this.endpointFunctionIDLock = new Object();
         this.topologyElementStatusLock = new Object();
@@ -84,6 +87,7 @@ public class EndpointElement {
         this.derivedTypeLock = new Object();
         this.exposedPortLock = new Object();
         this.versionLock = new Object();
+        this.utilisingSecurityLock = new Object();
     }
 
     public EndpointElementTypeEnum getEndpointType() {
@@ -221,12 +225,24 @@ public class EndpointElement {
         }
     }
 
+    public boolean isUtilisingSecurity() {
+        return utilisingSecurity;
+    }
+
+    public void setUtilisingSecurity(boolean utilisingSecurity) {
+        synchronized (this.utilisingSecurityLock) {
+            this.utilisingSecurity = utilisingSecurity;
+        }
+    }
+
     public ElementDerivationTypeEnum getDerivedType() {
         return derivedType;
     }
 
     public void setDerivedType(ElementDerivationTypeEnum derivedType) {
-        this.derivedType = derivedType;
+        synchronized (this.derivedTypeLock) {
+            this.derivedType = derivedType;
+        }
     }
 
     public String getVersion() {
@@ -234,6 +250,8 @@ public class EndpointElement {
     }
 
     public void setVersion(String version) {
-        this.version = version;
+        synchronized (this.versionLock) {
+            this.version = version;
+        }
     }
 }

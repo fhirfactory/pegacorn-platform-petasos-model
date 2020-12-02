@@ -23,11 +23,12 @@ package net.fhirfactory.pegacorn.petasos.model.wup;
 
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.fhirfactory.pegacorn.petasos.model.pathway.ActivityID;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class WUPJobCard {
     private static final Logger LOG = LoggerFactory.getLogger(WUPJobCard.class);
@@ -117,6 +118,7 @@ public class WUPJobCard {
         this.requestedStatus = originalCard.getRequestedStatus();
         this.systemMode = originalCard.getSystemMode();
         this.grantedStatus = originalCard.getGrantedStatus();
+        this.isToBeDiscarded = false;
         generateToString();
     }
 
